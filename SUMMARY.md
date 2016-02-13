@@ -1,3 +1,3 @@
-# Summary
+# 目次
 
-* [A Magical Trick](docs/01-a-magical-trick.md)
+* [型クラスを利用したミニ DSL](docs/12-a-mini-dsl-with-type-classes.md)
