@@ -180,3 +180,68 @@ assetsUnderManagement3 = sum
 ```
 
 実際、両者の記法は等価で、単にスタイルが異なるだけです。
+
+## パスの問い合わせを SQL 風に
+
+_すべての_ 資産ではなく、Canoo 社がこの銀行に保有している資産の総額のみに興味がある場合を考えてみましょう。リスト内包表記を使えばこれは簡単で、また面白いことに SQL と似た部分があることがわかります。
+
+Caption: クエリとしてのリスト内包表記
+
+```
+allCanoo3 = sum
+    [value position |                       -- SELECT
+        client    <- bank.clients,          -- FROM
+        portfolio <- client.portfolios,
+        position  <- portfolio.positions,
+        position.ticker == CANO             -- WHERE
+    ]
+```
+
+ここでは `value` 関数は SQL でいう射影、`position` は選択、リストは元データであり、ガードが where 節として働きます。
+
+「do」記法が等価になることはすでに述べました。この場合、where 節よる絞り込みは以下のようになります。
+
+Caption: 絞り込みつきの do 記法
+
+```
+allCanoo2 = sum $
+    map value do
+        client    <- bank.clients
+        portfolio <- client.portfolios
+        filter canoo portfolio.positions
+    where
+        canoo position = position.ticker == CANO
+```
+
+スタイルが微妙に異なることがわかるでしょう。
+
+最後に、パスを用いて絞り込みを表現すると以下のようになります。
+
+```
+allCanoo1 = sum $
+    map value $
+        bank.clients >>= Client.portfolios >>= filter canoo . Portfolio.positions where
+            canoo position = position.ticker == CANO
+```
+
+このような絞り込みはパス中のどの部分でも書くことができ、また絞り込み以外にもパスを評価する過程でリストに関数をマップしても構いません。
+
+## まとめ
+
+今回は日常のビジネスシーンから始めて、リストの持つ以下のような奥深い性質を見ることができました。
+
+* パスをうまく表現できる
+* 「do」記法と組み合わせて使うことができる
+* 内包表記はそれほど特別なものではない
+* SQL と似た方法で参照によるグラフ構造に対して問い合わせができる
+
+総じて、内包表記が最もつぶしがきく記法で、特に絞り込みと射影には内包表記が向いています。単に値を集計したいのであればパス記法が良いでしょう。
+
+他の言語であっても、パスによる表現が簡潔に書けることがあります。今回で言えば、例えば Groovy の GPath では `bank.clients*.portfolios*.positions.findAll{it.ticker == CANO}*.value().sum()` となります。ただし、コードの見た目のみで比較できるわけではありません。
+
+決め手は遅延評価: Frege が持つ重要な長所として、遅延評価があります。巨大なグラフは決してそのまま具現化されるわけではなく、「(実際には存在しない) 問い合わせ結果のリスト」も具現化されません。パスは巨大なデータ構造ではなく、評価のストリームを組み立てるのです。
+
+## 参考文献
+
+* [Groovy GPath](http://docs.groovy-lang.org/latest/html/documentation/#gpath_expressions)
+* [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/List)
