@@ -86,3 +86,19 @@ star3 = once $ starTicker noPortfolioBank == Nothing
 
 このアプローチでも動作はしますが、明らかに改善の余地ありです。
 
+## 表記法の改善
+
+ここは一度戻って、今回何をしているのかについて再考しましょう。
+
+「[リストとパス](06-list-and-path.md)」でやったのと同じように、登場する関数とその型を確認してみます。
+
+Table 1: 関数とその型の組み合わせ
+
+| 番号 | 関数             | 型                           |
+|:----|:------------------|:-----------------------------|
+| <1> | `bank.star`       | `Maybe Client`               |
+| <2> | `Clients.star`    | `Client → Maybe Portfolio`   |
+| <3> | `Portfolio.star`  | `Portfolio → Maybe Position` |
+| <4> | `Position.ticker` | `Position → Ticker`          |
+
+各関数は、次の関数の引数の型に _Maybe_ をつけたものを返します。したがっておそらく、このパターンを一般化して、関数を _バインド_ することで一行にまとめることができるはずです。
