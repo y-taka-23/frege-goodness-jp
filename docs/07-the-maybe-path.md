@@ -102,3 +102,31 @@ Table 1: 関数とその型の組み合わせ
 | <4> | `Position.ticker` | `Position → Ticker`          |
 
 各関数は、次の関数の引数の型に _Maybe_ をつけたものを返します。したがっておそらく、このパターンを一般化して、関数を _バインド_ することで一行にまとめることができるはずです。
+
+<1> と <2> をバインドすると
+
+```
+<1>             <2>                            return type
+Maybe Client -> (Client -> Maybe Portfolio) -> Maybe Portfolio
+```
+
+<2> と <3> をバインドすると
+
+```
+<2>                <3>                              return type
+Maybe Portfolio -> (Portfolio -> Maybe Position) -> Maybe Position
+```
+
+見ての通り、背後には以下のような型を持つ _bind_ によって一般化されたパターンがあります。
+
+```
+Maybe a → (a → Maybe b) → Maybe b
+```
+
+嬉しいことに、すでに _bind_ 関数が使える形になっていて、「お手軽入出力」(Todo: 書いたらリンクを貼る) や「[リストとパス](06-list-and-path.md)」と同じように `>>=` で記述することができます。
+
+<1> と <2> を組み合わせると `bank.star >>= Client.star`
+
+<2> と <3> を組み合わせると `Client.star >>= Portfolio.star`
+
+<1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.star >>= Client.star >>= Portfolio.star`
