@@ -142,4 +142,36 @@ starTicker bank =
     bank.star >>= Client.star >>= Portfolio.star >>= \position -> Just position.ticker
 ```
 
-`Position.ticker` も _Maybe_ 型だったらもっとすっきりと書けたでしょう。
+`Position.ticker` も _Maybe_ 型だったらもっとすっきりと書けたでしょう。しかし銘柄がないポジションは存在し得ないため、こちらのほうがリアリティがあります。また、関数に渡す引数をラムダ式のパラメータとして束縛する例としても勉強になります。
+
+型を確認するのは簡単です。「静かなる記号たち」(Todo: 書いたらリンク貼る) ですでに見たように、
+
+```
+\position -> Just position.ticker   -- Position -> Maybe Ticker
+```
+
+は単なる
+
+```
+foo :: Position -> Maybe Ticker
+foo position = Just position.ticker
+```
+
+の別表記で、いい関数名をわざわざ考える労力を使わずに済ませることができます。
+
+## 「do」記法、ふたたび
+
+一方、_バインド_があるところ、少し足を伸ばせば「do」記法が現れるのはごく自然なことです。
+
+Caption: 「do」記法による星付き銘柄
+
+```
+starTicker bank = do
+    warrenBuffet  <- bank.star
+    starPortfolio <- warrenBuffet.star
+    starPosition  <- starPortfolio.star
+    Just starPosition.ticker
+```
+
+かなりいい感じに読みやすくなりますし、まさに狙ったとおりに動きます。各ステップは `Nothing` に評価され得ること、またその場合にはそれ以上評価を続けることなく _即座に_ `Nothing` が返ることに注意しましょう。
+
