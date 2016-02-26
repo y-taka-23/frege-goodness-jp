@@ -130,3 +130,16 @@ Maybe a → (a → Maybe b) → Maybe b
 <2> と <3> を組み合わせると `Client.star >>= Portfolio.star`
 
 <1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.star >>= Client.star >>= Portfolio.star`
+
+Important: ジャジャーン！ 今回もシンプルな「パス」表現にたどり着きました。今回は、オプショナルな _星付き_ 顧客の、オプショナルな _星付き_ ポートフォリオの、オプショナルな _星付き_ 　ポジションに対するパスとなっています。
+
+仕上げとして、一つのパスにまとめたものが以下です。
+
+Caption: パス内の Maybe 値の連鎖
+
+```
+starTicker bank =
+    bank.star >>= Client.star >>= Portfolio.star >>= \position -> Just position.ticker
+```
+
+`Position.ticker` も _Maybe_ 型だったらもっとすっきりと書けたでしょう。
