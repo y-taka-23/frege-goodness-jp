@@ -175,3 +175,22 @@ starTicker bank = do
 
 かなりいい感じに読みやすくなりますし、まさに狙ったとおりに動きます。各ステップは `Nothing` に評価され得ること、またその場合にはそれ以上評価を続けることなく _即座に_ `Nothing` が返ることに注意しましょう。
 
+## アプローチの比較
+
+`Maybe` 型は、パスによる表現を用いるにしろ do 記法と組み合わせて使うにしろ、どちらにしても応用が効きます。
+
+他の言語であっても、パスによる表現が簡潔に書けることがあります。今回で言えば、例えば Groovy の GPath では `bank.star?.star?.star?.ticker` となりますが、パス中のどこかが _null_ となった場合には全体として _null_ を返します。
+
+null は存在しない: ここで思い出しておきましょう。Frege に _null_ は存在せず、したがって _NullPointerException_ も存在しません。このことは何度でも繰り返し主張するに値します。
+
+ただし、コードの見た目のみで比較できるわけではありません。
+
+Frege では _Maybe_ のコンテクストを取り回すことで、値が取得不可能かもしれないことを呼び出し側が忘れて、うっかり呼び出してしまわないことを型システムにより保証できる、という利点があります。
+
+Java でも、もし仮に NullPointerException が「検査例外」であったなら (実際はそうではない) 同じような効果が期待できたでしょう。Java 8 以降には _Optional_ 型が存在し、`flatMap` 関数がここで見た _バインド_ と同じように動作します。この抽象化が Java でどれだけうまく機能するか、時が経てば明らかになることでしょう。
+
+## 参考文献
+
+* [Groovy Null-Safe](http://groovy-lang.org/operators.html#_safe_navigation_operator)
+* [Learn you a Haskell](http://www.learnyouahaskell.com/a-fistful-of-monads)
+* [Java 8 Optionals](http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html) (possibly contains some errors)
