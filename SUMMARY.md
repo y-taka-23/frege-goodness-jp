@@ -1,5 +1,6 @@
 # 目次
 
+* [お手軽入出力](docs/05-easy-io.md)
 * [リストとパス](docs/06-list-and-path.md)
 * [Maybe 付きのパス](docs/07-the-maybe-path.md)
 * [数と遊ぼう](docs/11-fun-with-numbers.md)
