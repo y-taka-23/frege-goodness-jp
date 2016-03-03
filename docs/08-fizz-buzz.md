@@ -164,3 +164,27 @@ fizzbuzz 数列の他の部分を表示したい場合、コード中のどの�
 
 * 命令型：まったく直接的でない (法 15 はどこから来たもの？)
 * Frege：厳密に一対一対応している
+
+### インクリメンタル開発
+
+Frege による解答はインクリメンタルに、すなわち一行ずつ変更して開発を進めることができます。すでに書いた行を変更するために逆戻りすることは決してありません。再コンパイルの必要すらないのです！ これは大きなポイントで、ビルド済みのコードにはバグが混入しえないということを意味します。
+
+命令型の解答では、変更ごとに既存コードの書き直しと再コンパイルが必要です。
+
+### テスト容易性
+
+Frege による解答は行ごとにテストすることができます。
+
+命令型の解答には副作用が組み込まれているため、テストすることは極めて困難です。しかしこの点がなんとかなりさえすれば、全体をまとめて一度にテストすることなら可能です。
+
+ジョン・ヒューズはその有名な論文 "Why functional programming matters" の中で、データの生成と使用を分離し、シンプルな部品を組み合わせてロジックを組み立てることによって得られる __モジュール性の改善__ こそが主たる利点のひとつであると指摘しました。
+
+今回の FizzBuzz を見ると、この主張の正しさは認めざるをえません。関数型のコードでは各行がモジュールを構成している一方、命令型の解答はモノリシックな構成になっています。
+
+## 参考文献
+
+* [Why FP matters](http://www.cs.kent.ac.uk/people/staff/dat/miranda/whyfp90.pdf)
+* [Simplicity](https://www.youtube.com/watch?v=rI8tNMsozo0) (Rich Hickey, RailsConf Keynote 2012)
+* RxJava: [An interesting solution by Tim Yates](https://gist.github.com/timyates/0d6b47e429023630a750)
+* Java8: The Scalarian has correctly pointed out that with Java 8 there is [a much less imperative solution](https://github.com/thescalarian/FregeGoodness/blob/patch-1/src/docs/asciidoc/fizzbuzz.adoc)
+* [FizzBuzz Solutions](http://c2.com/cgi/wiki?FizzBuzzTest): [Fizzbuzz Trek](https://vimeo.com/144335290) by Kevlin Henney
