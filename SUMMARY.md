@@ -1,5 +1,6 @@
 # 目次
 
+* [静かなる記号たち](docs/03-silent-notation.md)
 * [お手軽入出力](docs/05-easy-io.md)
 * [リストとパス](docs/06-list-and-path.md)
 * [Maybe 付きのパス](docs/07-the-maybe-path.md)
