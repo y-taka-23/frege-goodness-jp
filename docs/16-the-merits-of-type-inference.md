@@ -146,4 +146,20 @@ quickCheck applied_twice
 
 そして QuickCheck はしっかりと `OK, passed 100 tests.` を返します。
 
-想像してみましょう。Frege はこの作業をするためにかなり頭を使っています。ランダムな値を入れられるようにするためには、Frege は `x` の型を見つける必要があります。`x` は `twice` の引数ですが `twice` の型について制約はついていないので、ここから直接情報を得ることはできません。しかし `x` の型は `twice` の第一引数の戻り値すなわち `prefix "<"`の型でもあります。またしかしこの型は _ListSemigroup_ という極めて抽象的な型です。
+想像してみましょう。Frege はこの作業をするためにかなり頭を使っています。ランダムな値を入れられるようにするためには、Frege は `x` の型を見つける必要があります。`x` は `twice` の引数ですが `twice` の型について制約はついていないので、ここから直接情報を得ることはできません。しかし `x` の型は `twice` の第一引数の戻り値すなわち `prefix "<"`の型でもあります。またしかしこの型は _ListSemigroup_ という極めて抽象的な型です。文字列 `"<"` (_prefix_ の第一引数) を _prefix_ の戻り値 (_ListSemigroup String_) と単一化して初めて、QuickCheck は `(prefix "<")` が文字列を返すことを知ります。そこから `(prefix "<"`) にはまず文字列が与えられる必要があることがわかるため、`x` は文字列であることが判明し、String 型にランダム値を生成させるという流れになります。ふぅ。
+
+Frege はこの結論プログラマからの助けを全く借りずにこの結論に至ったことになります。
+
+いずれにせよ、コードは構造的に正しいことが保証されました。しかもコンパイル時に！
+
+Caption: 練習問題
+
+納得がいかない場合は、2 回呼ばれると問題が起こりそうな関数を _twice_ に与えて確認してみましょう。
+
+最後に考えてみてください。Frege 以外の JVM 言語でこんなことができますか？
+
+## 参考文献
+
+* Type Inference: [Hindley-Milner Type System](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system)
+* Semigroup: [Wikipedia](https://en.wikipedia.org/wiki/Semigroup), [Haskell Typeclassopedia](https://wiki.haskell.org/Typeclassopedia#Semigroup), [Semigoupoid (API)](http://www.frege-lang.org/doc/frege/control/Semigroupoid.html), [ListSemigroup (API)](http://www.frege-lang.org/doc/frege/prelude/PreludeList.html#ListSemigroup)
+* QuickCheck: [Frege Wiki Page](https://github.com/Frege/frege/wiki/Getting-Started#quickcheck)
