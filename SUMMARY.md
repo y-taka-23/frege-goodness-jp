@@ -1,5 +1,6 @@
 # 目次
 
+* [QuickCheck で性質テスト](docs/02-a-simple-quickcheck-property.md)
 * [静かなる記号たち](docs/03-silent-notation.md)
 * [お手軽入出力](docs/05-easy-io.md)
 * [リストとパス](docs/06-list-and-path.md)
