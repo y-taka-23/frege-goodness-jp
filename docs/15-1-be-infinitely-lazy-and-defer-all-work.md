@@ -27,3 +27,16 @@ buildTree :: (a -> [a]) -> a -> Tree a
 buildTree unfold a = Node a children where
     children = map (buildTree unfold) (unfold a)
 ```
+
+ここでは、再帰が停止するための底となる場合分けや、木の大きさに対する制限については何も考えていません。しかし `buildTree` を呼んでもメモリや計算時間を使い果たしたりしないことに注意してください。言語が持つ遅延評価の機能によって、必要な時だけ子要素を生成するように考えられているのです。
+
+与えられたデータ型 `Board` と、合法手を適用してすべてのボードを生成する関数 `move` を用いて具体化すると以下のようになります。
+
+Caption: ボード上のすべての合法手を生成するゲーム木
+
+```
+gameTree :: Board -> Tree Board
+gameTree board = buildTree moves board
+```
+
+この具体化は部分型を必要とせず、また依然として完全に型安全です。ここまで非侵入的にシステムを拡張してきましたが、さらにここからやはり非侵入的な方法でゲーム木のサイズを制限していきます。
