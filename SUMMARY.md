@@ -11,5 +11,5 @@
 * [型安全な DSL を目指して](docs/13-enhancing-the-dsl-for-type-safety.md)
 * [火星探査機コマンドと状態付き計算](docs/14-stateful-commands-for-the-mars-rover.md)
 * [インクリメンタル開発](docs/15-incremental-development.md)
-    + [第一回 : 無限に怠惰に後回し](docs/15-1-be-infinitely-lazy-and-defer-all-work.md)
+    * [第一回 : 無限に怠惰に後回し](docs/15-1-be-infinitely-lazy-and-defer-all-work.md)
 * [型推論のメリット](docs/16-the-merits-of-type-inference.md)
