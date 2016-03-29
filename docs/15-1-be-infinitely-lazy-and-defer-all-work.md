@@ -40,3 +40,33 @@ gameTree board = buildTree moves board
 ```
 
 この具体化は部分型を必要とせず、また依然として完全に型安全です。ここまで非侵入的にシステムを拡張してきましたが、さらにここからやはり非侵入的な方法でゲーム木のサイズを制限していきます。
+
+深さ「n」までに制限して木の評価を行う際は、単純にその深さで木を枝刈りします。このコードは今回のゲームにおける使用例とは独立であり、それゆえ任意の木のノードに対して同じように動作します。再帰的な定義は以下のようになります。
+
+Caption: 任意の木に対する枝刈り
+
+```
+prune 0 (Node a children) = Node a []
+prune n (Node a children) = Node a (map (prune (n-1)) children)
+```
+
+枝刈りされたゲーム木を作り出すためには、関数合成 (.) を使用します。
+
+Caption: 深さ 5 でのゲーム木の枝刈り
+
+```
+prunedTree = prune 5 . gameTree
+```
+
+実際にはまだ木を具現化しているわけではないことに注意してください！ 枝刈りされた木を使う側は、レベル 5 より深い部分を見ることは決してありません。これより深い位置にある子要素は評価されず、それゆえに、これが遅延評価のいいところですが、決して実際に生成されることはありません。
+
+遅延評価によってインクリメンタルな開発が可能となる範囲は、一般化された木を生成するところから特殊化されたロジックとデータ型を扱うまでの範囲に留まりません。枝借りの条件ですら「外部から」非侵入的に与えることができるのです。枝刈りの必要性をあらかじめ予期する必要はありません。
+
+変更の際にも、既存のコードに戻る必要はまったくありませんでした。再コンパイルすらなし！
+
+以上、第一回でした。第二回に続く。
+
+## 参考文献
+
+* John Hughes: [Why functional programming matters](http://www.cs.kent.ac.uk/people/staff/dat/miranda/whyfp90.pdf)
+* Tic Tac Toe: [live game](https://klondike.canoo.com/tictactoe/game), [full source code](https://github.com/Dierk/fregePluginApp/blob/game_only/src/frege/fregepluginapp/Minimax.fr)
