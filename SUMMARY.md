@@ -13,4 +13,5 @@
 * [インクリメンタル開発](docs/15-incremental-development.md)
     * [第一回 : 無限に怠惰に後回し](docs/15-1-be-infinitely-lazy-and-defer-all-work.md)
     * [第二回 : 関数と合成による設計](docs/15-2-designing-with-functions-and-composition.md)
+    * [第三回 : 高階関数と進化するデータ型](docs/15-3-higher-order-functions-and-data-type-evolution.md)
 * [型推論のメリット](docs/16-the-merits-of-type-inference.md)
