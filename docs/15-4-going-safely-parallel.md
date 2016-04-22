@@ -61,3 +61,16 @@ Frege によって、またもや _非侵入的な追加_ を行うことがで�
 並列実行では通常、_遅延評価_ は意味をなしません。新たに生成されたスレッドは、リクエストを受けた時に返す結果を準備しておくため、正格に動作を開始しなければならないからです。しかしこのようなアプローチは、_無限_ データ構造に適用された際には決して終了しないことになってしまいます。
 
 しかし追加開発を行う際には、上記のような考慮事項について我々の考え方ひとつで決めることができます。今ここは粒度について意思決定すべき場面であり、_possibleMoves_ が有限リストであることはすでにわかっています。これは一回の追加開発内で完結する決定です。
+
+Caption: マニア向け
+
+通常の遅延評価戦略が適用されている場合、`mapP` 内の並列実行は何の影響も与えません。並列化されたそれぞれの関数適用は、未評価の式を残したまま即座に呼び出し元に戻り、残された式はまた後で遅延実行されます。
+
+_mapP_ の実装はこの罠を避けるため、結果リストの各要素に対して弱冠頭正規形 (weak-head-normal-form, WHNF) になるまで強制的に評価を行います。
+
+並列実行を○×ゲームに適用してみたとき、個人的にはとても奇妙に感じました。`map` を `mapP` に変え、コードを走らせ、速度を向上させて遊びましたが、そのときいつもの癖で平行性に関する猜疑心に囚われたのです。__何かまずいことが起きるとしたらどんな場合だろう？__
+
+## 参考文献
+
+* John Hughes: [Why functional programming matters](http://www.cs.kent.ac.uk/people/staff/dat/miranda/whyfp90.pdf)
+* Tic Tac Toe: [live game](https://klondike.canoo.com/tictactoe/game), [full Frege source code](https://github.com/Dierk/fregePluginApp/blob/game_only/src/frege/fregepluginapp/Minimax.fr). [web integration code](https://github.com/Dierk/fregePluginApp/blob/game_only/grails-app/controllers/fregepluginapp/FooController.groovy)
