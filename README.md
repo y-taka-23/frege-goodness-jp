@@ -1,3 +1,33 @@
-# Frege Goodness (jp)
+# Frege Goodness へようこそ
 
-A Japanese translation of ["Frege Goodness"](http://www.gitbook.com/book/dierk/fregegoodness/details), WIP.
+Work in Progress : 本文書は現在翻訳中のものです。
+
+本書では、いくつかの章に分けて Frege の特徴を一つずつ紹介します。ひとつひとつの章はあえて短めにしてあるので、通勤電車の中でも、あるいは昼食を食べながらでも読み切ってしまえるはずです。
+
+本書の目的に対してこの GitBook は理想的な媒体でした。GitBook で配信することにより、読者は更新通知を登録して最新の記事を公開直後に読むことができます。しかしブログとは異なり、すべての章を手元に置いた上で閲覧したり検索したりすることも可能です。
+
+さらに、Web、スマートフォン、タブレット、iBooks、Kindle など、各種デバイスもサポートされています。
+
+なお、[日本語版](https://www.gitbook.com/book/y-taka-23/frege-goodness-jp/) の翻訳も Yuto Takahashi (@y-taka-23) によって進行中です。
+
+## 準中級者向け
+
+読者層としては、Haskell/Frege の基本的な文法要素については知っている _準中級者_ を想定しています。
+
+本書の目的は、最初の一歩を通過したその後に来る好奇心をくすぐることです。この次は何をすればいい？ 典型的なそして Frege 的な使い方とは？ 特定のユースケースでなぜ Frege を使うべきなのか？ 昔から純粋関数型プログラミングに不向きだと思われている分野で Frege を実用的に使うには？ Frege のキモはどこにある？
+
+一言で言えば、Frege の威力を完全に引き出すためのすべてがここにあります。
+
+## 執筆協力
+
+本書の原稿は GitHub で管理されています。フィードバック、質問、改善提案などがありましたら [Issue](https://github.com/Dierk/FregeGoodness/issues) に登録してください。
+
+最近、GitBook はパラグラフと紐づいたドキュメント内コメントをサポートするようになりました。パラグラフにカーソルを当てると「+」ボタンが現れるので、クリックすればコメントを書き始められます。
+
+本書に協力して頂ける方からの [プルリクエスト](https://github.com/Dierk/FregeGoodness/pulls) も歓迎しています。
+
+原著者へのコンタクトは Twitter アカウント [@mittie](https://twitter.com/mittie) あるいは各種 [Frege 関連チャンネル](https://github.com/Frege/frege#contact) から可能です。
+
+## クレジット
+
+Frege Goodness のフォーマットは、Goovy-/Grails-/Gradle- の各 Goodness シリーズを長きに渡って執筆している @MrHaki にインスパイアされたものです。本書では氏の例に沿ってプログラミング言語 Frege に関するトピックを説明しています。
