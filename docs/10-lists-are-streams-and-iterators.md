@@ -30,3 +30,25 @@ Caption: 巨大なリスト
 ```
 large = [1..100_000_000]
 ```
+
+さて、これはレンジ指定リストでのみ使える特殊な機能だと思われるかもしれません。しかし遅延評価の恩恵により、個々の要素が何らかの方法で生成されるような任意のリストに対してこの機能が使用可能です。
+
+Caption: その他の無限リスト
+
+```
+-- derive next value from predecessor
+cardinals = iterate (+1) 1
+
+-- derive by repeating
+toggles   = cycle [true, false]
+
+-- derive by mapping
+data BigData    = BigData { number :: Integer }
+infiniteBigData = map BigData [1..]
+```
+
+Java プログラマにとって、巨大なリストや Collection データ構造一般に対してもともと持っている不安を払拭するのは、いくらか訓練が必要です。
+
+_心得その一_ : リストは評価されない限り、そのリストを定義するロジック (これを「サンク」と呼ぶ) の分しかメモリを占有しない。サンクを保持するために必要なメモリ空間はほぼゼロである。
+
+_心得その二_ : 要素は必要となった時にだけ生成される。例えば `infiniteBigData` の 1000 番目の要素を問い合わせた場合、生成される BigData の値は (1000 個ではなく) ただ _一個_ のみである。
