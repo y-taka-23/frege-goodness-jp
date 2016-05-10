@@ -196,3 +196,10 @@ doodle ctx = map (connect ctx) stairs
 ここに至っても、扱っているコードは _純粋_ 関数的であることに注意しましょう！ ここまででアクションからなるような無限リスト、ストリームあるいはイテレータを作ることはほとんどありませんでした。
 
 そして、シーケンスを必要なだけの断片に制限し、`paint (sequence_ . take 500 . doodle)` のように _paint_ 関数に渡すことによって実際の描画が行なわれます。
+
+ここに挙げたのは、私がリストの持つ多様な用途をまさにありがたく感じた例です。この性質を利用することで、何をすべきかという仕様と、その仕様を実行することとを切り離すことができます。これを知った時、最初は「でも結果的に巨大な、メモリを食い潰すリストになるんじゃないかな」と感じ、そうはならない理由を理解するのにはやや時間がかかったものです。
+
+## 参考文献
+
+* The FregeFX REPL: [https://github.com/Dierk/frepl-gui](https://github.com/Dierk/frepl-gui), The latest Version contains the stairs doodle as an example of how to load code from the web.
+* Code of stairs doodle: [https://github.com/Dierk/frepl-gui/blob/master/Stairs.fr](https://github.com/Dierk/frepl-gui/blob/master/Stairs.fr)

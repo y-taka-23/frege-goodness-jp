@@ -10,7 +10,7 @@
 * [FizzBuzz 問題](docs/08-fizz-buzz.md)
 * ドット記法の威力
     + アンダースコア・ドット記法
-* リストに見るストリームとイテレータ
+* [リストに見るストリームとイテレータ](docs/10-lists-are-streams-and-iterators.md)
 * [数と遊ぼう](docs/11-fun-with-numbers.md)
 * [型クラスを利用したミニ DSL](docs/12-a-mini-dsl-with-type-classes.md)
 * [型安全な DSL を目指して](docs/13-enhancing-the-dsl-for-type-safety.md)
