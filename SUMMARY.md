@@ -3,7 +3,7 @@
 * 種も仕掛けも
 * [QuickCheck で性質テスト](docs/02-a-simple-quickcheck-property.md)
 * [静かなる記号たち](docs/03-silent-notation.md)
-* 素晴らしきかな不変性
+* [素晴らしきかな不変性](docs/04-efficient-immutables.md)
 * [お手軽入出力](docs/05-easy-io.md)
 * [リストとパス](docs/06-list-and-path.md)
 * [Maybe 付きのパス](docs/07-the-maybe-path.md)

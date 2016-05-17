@@ -68,3 +68,12 @@ Important: 不変性がデフォルト : 一番いいのは、不変性を有効
 Frege で使用される標準的なデータ構造はすべて不変です。オブジェクト指向業界から来た人にとって、これは驚くべきことでしょう。例えば、連想配列はいつもその要素を変更することで使用してきました。むしろそれこそが連想配列の主目的だと思っているかもしれませんね！ 今回はその世界観を考え直す良い機会です。参考文献を調べると、この件について情報や着想が得られるでしょう。
 
 ここで、_dierk_ が現在、考えるのに使っている言語は何でしょう？ 三種類の参照のうちどれが使用されるのでしょうか？ 各時点で「最新版」の `Person` を一つだけ保持したほうがよいのではないでしょうか？
+このような例については先の記事で扱います。また、可変な状態によって不変データ構造が破壊されることを防ぐ Frege の「からくり」についても説明することになるでしょう。
+
+## 参考文献
+
+* Chris Okasaki
+    + "Purely Functional Data Structures" [http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)
+* Rich Hickey
+    + Keynote: The Value of Values [http://www.infoq.com/presentations/Value-Values](http://www.infoq.com/presentations/Value-Values)
+    + Persistent data structures [https://www.youtube.com/watch?v=hb3rurFxrZ8](https://www.youtube.com/watch?v=hb3rurFxrZ8) (min 22 ff)
