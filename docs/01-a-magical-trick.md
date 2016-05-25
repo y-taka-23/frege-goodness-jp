@@ -89,3 +89,12 @@ Caption: ファンクタ合成の可換図式
 今回、_g_ に対しては（純粋であることを除き）それほど多くの制限をかけていません。g が関数 `g x = println x` であるときなど、`IO ()` のような IO 型を返す場合であってもやはり正しく動作します。この場合、戻り値は (未実行の) IO アクションのリストであり、その他の場合と同じくもとのリストを逆転したものになります。
 
 _f_ については状況が異なります。`[a]` を `[a]` にうつす関数は少数しか存在しません。しかしこの型で  _Hoogle_ 検索すれば、面白いものがいくつか表示されます。`reverse` の他にも、`id` は当然として `tail` (先頭以外の全ての要素)、`init` (末尾以外の全ての要素)、や 現在のリストを際限なく繰り返すことで無限リストを作り出す `cycle`が存在します。
+
+Note: 決め手は純粋性: ここで登場した定理は、他の JVM 言語でも同じように成立するでしょうか？ 答えは否。この定理が成り立つためには関数の純粋性が必要なのです。
+
+## 参考文献
+
+* [Hoogle `[a]→[a]`](https://www.haskell.org/hoogle/?hoogle=%5Ba%5D+-%3E+%5Ba%5D)
+* Phil Wadler: [Tech Mesh 2012 - Faith, Evolution, and Programming Languages: from Haskell to Java](https://www.youtube.com/watch?v=NZeDRs6snm0)
+* Bartosz Milewski: [Natural Transformations, The Yoneda Lemma](http://bartoszmilewski.com/2015/04/07/natural-transformations/)
+* [Functor](http://en.wikipedia.org/wiki/Functor)

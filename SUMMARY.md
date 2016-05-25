@@ -1,6 +1,6 @@
 # 目次
 
-* 種も仕掛けも
+* [タネも仕掛けも](docs/01-a-magical-trick.md)
 * [QuickCheck で性質テスト](docs/02-a-simple-quickcheck-property.md)
 * [静かなる記号たち](docs/03-silent-notation.md)
 * [素晴らしきかな不変性](docs/04-efficient-immutables.md)
