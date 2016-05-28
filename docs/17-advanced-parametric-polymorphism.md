@@ -35,3 +35,5 @@ static List<Integer> sqrs = <Integer, Integer>map(
 	x -> x*x,
 	Arrays.asList(1,2,3,4,5,6,7,8,9,10));
 ```
+
+Frege の型推論は `map` の型を完全に自動で推論できますが、通常の場合、明示的に型宣言を付けます (Eclipse プラグインのようなツールを使用すればワンクリックで可能です)。
