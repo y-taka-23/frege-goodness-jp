@@ -238,3 +238,4 @@ fzip (const []) [1..10] ['a'..'z']   -- ∀a b.a → [b]
 * `f` の型を、もっと一般的な `∀a b.[a] → [b]` としないのは何故か (最後に挙げた例がヒントになっています)
 * (真の Java の達人向け) キャストや `@SuppressWarnings` を使用せずに、Java で `fzip` を実装して、警告なしでコンパイルできるか (実は可能なのです)
 
+* Java solution: [Marimuthu’s proposal](https://gist.github.com/mmhelloworld/eac189d52cd1e2a91ad5)
