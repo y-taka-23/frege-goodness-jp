@@ -8,7 +8,7 @@
 * [リストとパス](docs/06-list-and-path.md)
 * [Maybe 付きのパス](docs/07-the-maybe-path.md)
 * [FizzBuzz 問題](docs/08-fizz-buzz.md)
-    + FizzBuzz 問題ふたたび
+    + [FizzBuzz 問題ふたたび](docs/08-1-fizzBuzz-revisited.md)
 * ドット記法の威力
     + アンダースコア・ドット記法
 * [リストに見るストリームとイテレータ](docs/10-lists-are-streams-and-iterators.md)

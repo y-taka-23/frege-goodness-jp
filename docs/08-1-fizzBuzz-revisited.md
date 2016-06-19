@@ -72,3 +72,48 @@ pattern  = zipWith mappend fizzes buzzes
 ```
 
 一見して明らかにわかりやすくなりました。それでは、数列をマスクするためにこのパターンをどうやって使うのかを見ていきましょう。
+
+## ポイントその 2：条件の組み合わせ
+
+次にポイントになるのは、数列とFizzBuzz のパターンとを組み合わせて、`Nothing` に評価される数字を「素通り」させる部分です。
+
+言い方を変えれば、_Maybe_ 型から、もし値が存在すれば _Just_ 値に、そして _Nothing_ の場合はデフォルト値に評価されるような関数が必要だということです。
+
+Caption: fromMaybe の動作
+
+```
+fromMaybe number (Just x) = x
+fromMaybe number Nothing = number
+```
+
+さて、これで `x` や `number` の型とロジックが完全に独立しました。確かに _Maybe_ 型は、まさにこのような関数において便利に使用できます。すでに存在する機能を再利用することで、ここでも抽象化の利益を享受することができるのです。
+
+Caption: 最終的なリファクタリング結果
+
+```
+module FizzBuzz where
+
+import Data.Monoid
+
+nums     = map show [1..]
+fizzes   = cycle [Nothing, Nothing, Just "fizz"]
+buzzes   = cycle [Nothing, Nothing, Nothing, Nothing, Just "buzz"]
+pattern  = zipWith mappend fizzes buzzes
+
+fizzbuzz = zipWith fromMaybe nums pattern
+
+main _ = do
+    println $ take 100 fizzbuzz
+```
+
+この回答をさらに改良するのもありです。例えば、`[Nothing, Nothing]` を `repeat 2 Nothing` で置き換えることができるでしょう。
+
+いずれにしても、下の参考文献を当たれば、モノイドとなるデータ型は _本当に多数_ 存在することがわかるでしょう。これらを調べ、また実際に使ってみることは、今回の解法の本質を掴む上でしばしば助けになります。
+
+本記事では、ビジネスルール上「起こるかもしれない」という性質を、型として抽象化することで捉えました。
+
+_今回のリファクタリングを提案してくれた Ingo Wechsung 氏に感謝します！_
+
+## 参考文献
+
+* Monoid in Frege doc: [http://www.frege-lang.org/doc/frege/data/Monoid.html](http://www.frege-lang.org/doc/frege/data/Monoid.html)
