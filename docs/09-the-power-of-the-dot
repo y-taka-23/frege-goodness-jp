@@ -39,3 +39,18 @@ TextArea.getCaretPosition inputArea
 ```
 
 これがドット記法の第一の使い方です。`getCaretPosition` 関数は `TextArea` モジュール由来のものであり、Frege は関数名の検索のため、あるいは曖昧さを排除するためにドットを使用します。
+
+この関数は引数をひとつ (`inputArea`) 取り、その型は `TextArea` です。Frege では、この引数の型が宣言されていたりあるいは推論可能であったりして、すでに判明していることもよくあります。このような場合、ドット記法は `inputArea.getCaretPosition` の形で書くことができます。以下に示したのは、[Frege FregeFX REPL](https://github.com/Dierk/frepl-gui/blob/master/client/src/main/frege/org/frege/Application.fr#L112) のソースコード中に現れる例です。
+
+Caption: オブジェクト指向とごく近い記法
+
+```
+insert :: TextArea -> String -> IO ()
+insert inputArea text = do
+    pos <- inputArea.getCaretPosition
+    inputArea.insertText pos text
+```
+
+この記法は読みやすく馴染みがあるというだけではなく、強力な IDE のサポート機能が活用することも可能になります。
+
+さらに続きます。
