@@ -54,3 +54,84 @@ insert inputArea text = do
 この記法は読みやすく馴染みがあるというだけではなく、強力な IDE のサポート機能が活用することも可能になります。
 
 さらに続きます。
+
+## データ型
+
+以前の記事で、次のようなデータ型 `Position` をレコード構文を合わせて使用しました。
+
+Caption: position.ticker の使い方について
+
+```
+data Ticker = GOOG | MSFT | APPL | CANO | NOOB
+
+data Position = Position  { soMany :: Int, ticker :: Ticker }
+
+-- later:
+
+value position = calculate $ lookup position.ticker prices where
+    -- more here...
+```
+
+レコード構文では、`ticker` はフィールドのように見えます (し、そう呼ばれることもあります) が、実際には関数です。その銘柄の株価にアクセスする関数であり、Java でいう getter メソッドに相当します。
+
+この関数は、二通りの同値な方法で呼び出すことができます。
+
+Caption: 同値な記法
+
+```
+Position.ticker position  -- "getter"
+position.ticker
+```
+
+さらに、「フィールド」をセットしたり更新したりするための方法も追加で存在します。
+
+Caption: ドット記法を用いた、セットおよび更新の同値な記法
+
+```
+Position.{soMany = } position 1  -- "setter"
+position.{soMany = } 1
+
+Position.{soMany <-} position (+1) -- update
+position.{soMany <-} (+1)
+```
+
+繰り返しになりますが、この記法は非常にオブジェクト指向に似ており、IDE との相性も良好です。
+
+言うまでもなく、Frege の常として、この _setter_ と _update_ は値を直接書き換えるのではなく、新しいイミュータブルな値を返します。
+
+## 型クラス
+
+次に話題を型クラスに移して続けます。以下では、何らかの意味で複製することができる型クラスを導入し、String をその型クラスのインスタンスにしています。
+
+Caption: 型クラスのインスタンスに対するドット記法
+
+```
+class Doubleable a where
+    twice :: a -> a
+
+instance Doubleable String where
+    twice s = s ++ s
+
+main args = do
+    println $ Doubleable.twice "a"
+    println   "a".twice
+```
+
+Caption: 閉じた型を拡張する
+
+オブジェクト指向のプログラマなら、なぜ _String_ のような型 (Java の final クラスである String) ですら _twice_ のような新しい関数を定義して、100 % 型安全な形で拡張できるのかについて調べてみると面白いでしょう。
+
+## まとめ
+
+Frege では IDE 向けに、ドット記法の様々な用法に対応してコード補完を行う追加機能を提供しています。このような機能は依然、大部分の IDE で対応待ちの状態です。ぜひ [投票](https://youtrack.jetbrains.com/issue/IDEABKL-7108) してください！
+
+オブジェクト指向プログラマにとってドット記法は非常に読みやすく感じるため、純粋関数型の世界に対する敷居を低く感じさせるという効果もあります。
+
+もし「ドット記法の威力」こそが Haskell がオブジェクト指向言語から輸入すべき機能の最たるものであるとしたら、純粋関数型の恩恵とオブジェクト記法の便利さとを同時に得られるという意味で、Frege は優れた解決策を見出したことになります。
+
+## 参考文献
+
+* Vote IDE support: [https://youtrack.jetbrains.com/issue/IDEABKL-7108](https://youtrack.jetbrains.com/issue/IDEABKL-7108)
+* Simon Peyton Jones: [https://www.youtube.com/watch?v=dI6kWwZTOKM](https://www.youtube.com/watch?v=dI6kWwZTOKM), ff to Conclusions at the end
+* Marimuthu on record syntax: [http://mmhelloworld.github.io/blog/2014/03/15/frege-record-accessors-and-mutators/](http://mmhelloworld.github.io/blog/2014/03/15/frege-record-accessors-and-mutators/)
+* Frege Language Reference: [http://www.frege-lang.org/doc/Language.pdf](http://www.frege-lang.org/doc/Language.pdf), section 3.2 "Primary Expression"
