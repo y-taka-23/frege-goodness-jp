@@ -100,3 +100,54 @@ setName :: String -> State Person ()
 setName newName = do
     State.modify _.{name = newName}
 ```
+
+## 最後の考察として
+
+アンダースコアが使用できるのは、_ドットの直後_ に限られます。まだ束縛されていない変数を参照するために独立したアンダースコアを使用することはできません。これは他の言語と大きく異なるところです。
+
+すべての関数もしくはラムダ項は、アンダースコアで参照される自由変数を高々一つしか含みません。これは、Frege や Haskell では原則として、関数やラムダ項は引数を一つしか取らないからです。それ以外の自由変数は、以下の例のように束縛されないまま残ります。
+
+Caption: 二つ目以降の引数に対するいくつかの記法
+
+```
+String.startsWith "Dierk" "D"
+"Dierk".startsWith "D"
+map (\s -> s.startsWith "D") ["Ingo","Dierk"]
+map (_.startsWith "D") ["Ingo","Dierk"]
+```
+
+さらに、アンダースコアは入れ子にして使うこともできます。
+
+Caption: アンダースコア・ドット記法の入れ子
+
+```
+data Person  = Person  {addr :: Address}
+data Address = Address {street :: String}
+setStreet :: String -> State Person ()
+setStreet newStreet = do
+    State.modify _.{addr <- _.{street = newStreet} }
+```
+
+最初のアンダースコアは `Person` を、次のアンダースコアはその `Address` を参照しており、それぞれがどの型を参照しているのかは明らかです。
+
+しかし、コード中のアンダースコアの意味を「解読」することが難しい時であっても、明示的な引数に置き換えることはいつでも可能です。
+
+Caption: アンダースコアを名前付き引数に戻す
+
+```
+...
+    State.modify (\p -> p.{addr <- (\a -> a.{street = newStreet} ) } )
+```
+
+将来的に、 IDE のサポート機能で二つの記法を切り替えを可能にするのは難しくありません。また `_.`  の後に続くコードの補完も、IDE の機能として面白そうです。
+
+## Haskell との比較
+
+Frege でのドットの扱いを Haskell で同じように書くことはできず、特別な構文拡張であると考えることができます。
+
+この拡張には、以下に挙げるような様々な利点があります。
+
+* 上記のような、Java プログラマにとってより馴染みのある簡潔な記法が使える
+* Java 風の API やその元々の定義と相性がよい
+* IDE でコード補完が可能
+* [TypeDirectedNameResolution](https://prime.haskell.org/wiki/TypeDirectedNameResolution) が可能
