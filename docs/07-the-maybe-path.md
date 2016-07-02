@@ -123,7 +123,7 @@ Maybe Portfolio -> (Portfolio -> Maybe Position) -> Maybe Position
 Maybe a → (a → Maybe b) → Maybe b
 ```
 
-嬉しいことに、すでに _bind_ 関数が使える形になっていて、「お手軽入出力」(Todo: 書いたらリンクを貼る) や「[リストとパス](06-list-and-path.md)」と同じように `>>=` で記述することができます。
+嬉しいことに、すでに _bind_ 関数が使える形になっていて、「[お手軽入出力](05-easy-io.md)」や「[リストとパス](06-list-and-path.md)」と同じように `>>=` で記述することができます。
 
 <1> と <2> を組み合わせると `bank.star >>= Client.star`
 
@@ -144,7 +144,7 @@ starTicker bank =
 
 `Position.ticker` も _Maybe_ 型だったらもっとすっきりと書けたでしょう。しかし銘柄がないポジションは存在し得ないため、こちらのほうがリアリティがあります。また、関数に渡す引数をラムダ式のパラメータとして束縛する例としても勉強になります。
 
-型を確認するのは簡単です。「静かなる記号たち」(Todo: 書いたらリンク貼る) ですでに見たように、
+型を確認するのは簡単です。「[静かなる記号たち](03-silent-notation.md)」ですでに見たように、
 
 ```
 \position -> Just position.ticker   -- Position -> Maybe Ticker

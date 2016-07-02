@@ -34,7 +34,7 @@ move position distance unit direction =
     position.{x <- (+ distance * unit * direction) }  -- (1)
 ```
 
-おなじみですが、`(1)` で 「The Power of the Dot」(Todo: 書いたらリンクを貼る) で登場した形式を用いて x 座標を変更しています。
+おなじみですが、`(1)` で 「[ドット記法の威力](09-the-power-of-the-dot.md)」で登場した形式を用いて x 座標を変更しています。
 
 Homework I: やる気のある人は、「[型安全な DSL を目指して](13-enhancing-the-dsl-for-type-safety.md)」で定義した型安全な長さの単位系を再利用して、上のコードを改良してみましょう。
 
