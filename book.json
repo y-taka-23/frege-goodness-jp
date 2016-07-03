@@ -1,0 +1,9 @@
+{
+  "plugins": ["forkmegithub"],
+  "pluginsConfig": {
+    "forkmegithub": {
+      "url": "https://github.com/y-taka-23/frege-goodness-jp"
+    }
+  }
+}
+
