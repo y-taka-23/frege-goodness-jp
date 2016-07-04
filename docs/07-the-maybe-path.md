@@ -147,7 +147,9 @@ starTicker bank =
 型を確認するのは簡単です。「[静かなる記号たち](03-silent-notation.md)」ですでに見たように、
 
 ```
-\position -> Just position.ticker   -- Position -> Maybe Ticker
+-- the type of the anonymous lambda expression is
+-- Position -> Maybe Ticker
+\position -> Just position.ticker
 ```
 
 は単なる
