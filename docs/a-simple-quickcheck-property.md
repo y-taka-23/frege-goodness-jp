@@ -2,7 +2,7 @@
 
 Frege には性質テスト (propery-based test) を可能にする機能が備わっています。この機能で何ができるのかを少し見ていきましょう。
 
-「[タネも仕掛けも](01-a-magical-trick.md)」では、以下のような関数 _f_ および _g_ を使用しました。
+「[タネも仕掛けも](a-magical-trick.md)」では、以下のような関数 _f_ および _g_ を使用しました。
 
 ```
 f :: [a] -> [a]  -- we should think of any such function

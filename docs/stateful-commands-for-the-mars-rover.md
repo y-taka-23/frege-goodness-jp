@@ -1,6 +1,6 @@
 # 火星探査機コマンドと状態付き計算
 
-「[型クラスを利用したミニ DSL](12-a-mini-dsl-with-type-classes.md)」で扱った内容をさらに発展させて、今回は DSL にふたつの新機能を導入しましょう。
+「[型クラスを利用したミニ DSL](a-mini-dsl-with-type-classes.md)」で扱った内容をさらに発展させて、今回は DSL にふたつの新機能を導入しましょう。
 
 * `move rover 20 meters forward` のような、英文として読めるコマンド式
 * 同じ探査機に対するコマンドの逐次実行
@@ -34,9 +34,9 @@ move position distance unit direction =
     position.{x <- (+ distance * unit * direction) }  -- (1)
 ```
 
-おなじみですが、`(1)` で 「[ドット記法の威力](09-the-power-of-the-dot.md)」で登場した形式を用いて x 座標を変更しています。
+おなじみですが、`(1)` で 「[ドット記法の威力](the-power-of-the-dot.md)」で登場した形式を用いて x 座標を変更しています。
 
-Homework I: やる気のある人は、「[型安全な DSL を目指して](13-enhancing-the-dsl-for-type-safety.md)」で定義した型安全な長さの単位系を再利用して、上のコードを改良してみましょう。
+Homework I: やる気のある人は、「[型安全な DSL を目指して](enhancing-the-dsl-for-type-safety.md)」で定義した型安全な長さの単位系を再利用して、上のコードを改良してみましょう。
 
 現時点ではうまく機能するように見えますが、複数の動作を順番に実行させようとした途端、このコードではむしろ使い勝手が悪くなります。最後の動作の結果が次の動作の引数になるよう、更新された位置情報を取り回す必要があるのです。
 
