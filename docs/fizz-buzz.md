@@ -190,3 +190,4 @@ Frege による解答は行ごとにテストすることができます。
 * RxJava: [An interesting solution by Tim Yates](https://gist.github.com/timyates/0d6b47e429023630a750)
 * Java8: The Scalarian has correctly pointed out that with Java 8 there is [a much less imperative solution](https://github.com/thescalarian/FregeGoodness/blob/patch-1/src/docs/asciidoc/fizzbuzz.adoc)
 * [FizzBuzz Solutions](http://c2.com/cgi/wiki?FizzBuzzTest): [Fizzbuzz Trek](https://vimeo.com/144335290) by Kevlin Henney
+* Carlo Pescio: A criticial review (Draft)[https://drive.google.com/file/d/0B59Tysg-nEQZOGhsU0U5QXo0Sjg/view?pref=2&pli=1]
