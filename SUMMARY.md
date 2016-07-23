@@ -2,7 +2,7 @@
 
 * [タネも仕掛けも](docs/a-magical-trick.adoc)
 * [QuickCheck で性質テスト](docs/a-simple-quickcheck-property.adoc)
-* [静かなる記号たち](docs/silent-notation.md)
+* [静かなる記号たち](docs/silent-notation.adoc)
 * [素晴らしきかな不変性](docs/efficient-immutables.md)
 * [お手軽入出力](docs/easy-io.md)
 * [リストとパス](docs/list-and-path.md)

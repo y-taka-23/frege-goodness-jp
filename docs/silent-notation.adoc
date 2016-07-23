@@ -39,77 +39,84 @@ foo $ bar $ baz $ buz x  -- flat $ style
 実用上、_$_ は開き括弧に相当するものと見て、対応する閉じ括弧が式の一番右側にあると考えることもできます。
 ****
 
-## 関数合成
+=== 関数合成
 
 いくらお金を見るのが好きでも、コード中に現れる _$_ 記号はそこまで目立たないとはいえません。しかしドット演算子は違います。これは _関数合成_ のための演算子で、数学の授業と同じく `f (g x)` を `(f • g) x` と書くことができます。
 
-```
+[source, haskell]
+----
 (foo . bar . baz . buz) x  -- function composition with dot
 (foo • bar • baz • buz) x  -- Frege also allows unicode 2022
-```
+----
 
+****
 関数合成を目にした際は、__右から左へ__ と読むのが最良の方法です。まず `buz x` が評価され、次に `baz`、`bar` ときて最後に `foo` が評価されます。これは括弧を入れ子にして書いた場合とまったく同じ順序です。
 
 実のところ関数合成は、Unix 系のシステムに見られるパイプ処理と (ただし順番が逆ですが) 非常によく似ています。
+****
 
 すでに述べた通り、関数適用は最強の優先度を持ち、関数合成よりも優先度が上です。したがって上に挙げた例では、正しく関数合成を行うために _buz_ と _x_ の間の括弧は必須です。しかしすでに学んだ通り、ドル記号の優先度は最低です。ということは今回もドル記号を使えばうまく動くはず、ですよね？ これはその通りで、同じように動作します。
 
-```
+[source, haskell]
+----
 foo . bar . baz . buz $ x  -- this is not used so often
-```
+----
 
 それではさらに _x_ も削って、ドル記号も括弧も使わずに動作させることはできないでしょうか？
 
 実はできます。しかしそのためには、少し背景について説明する必要があります。
 
-## ラムダ式としての関数
+=== ラムダ式としての関数
 
 引数に 1 を加算するだけの関数 `inc` があったとしましょう。この関数を記述する方法として、以下の 2 種類は同じ意味になります。
 
-```
+[source, haskell]
+----
 inc x = x + 1           -- usual function definition
 inc   = \x -> x + 1     -- equivalent lambda style
-```
+----
 
-## ポイントフリースタイル
+=== ポイントフリースタイル
 
 さて、_inc_ と同じように動作する関数 _f_ がほしい時、_f_ の定義中で _inc_ を使用して引数を渡すことができます。
 
-```
+[source, haskell]
+----
 f x   = inc x           -- f should be like inc
 f     = inc             -- point-free style, "cancel x"
-```
+----
 
 しかしさらに、_x_ を削って _f_ が _inc_ の別名であるかのように書くこともできます。以下はこれが妥当な変形であることの証明です。
 
-
-```
+[source, haskell]
+----
 f     = inc             -- beta reduction =>
 f     = \x -> x + 1     -- replace formal lambda parameter with free variable =>
 f x   = x + 1           -- same as definition of inc
-```
+----
 
 これで、今回の関数を定義する方法が 4 つ得られたことになります。
 
-Caption: 最終的な 4 つの書き方
-
-```
+.最終的な 4 つの書き方
+[source, haskell]
+----
 f x =  foo (bar (baz (buz x)))    -- deeply nested style
 f x =  foo $ bar $ baz $ buz x    -- flat $ style
 f x = (foo . bar . baz . buz) x   -- function composition
 f   =  foo . bar . baz . buz      -- point-free style
-```
+----
 
 この等価性を心に留めておくことで、自分のコードを書く時や、さらには他の開発者のコードを読む時にも、自信を持って今回説明した機能を扱えるようになるはずです。
 
 それなりの大きさのコードであれば、おそらく 4 種類のスタイルすべてが登場するでしょう。たとえば以前の記事では `f = reverse` の形でポイントフリースタイルを使用しましたが、この形式では説明なしでもコードの意味がわかると思います。`f x = reverse x` と書くこともできましたが、コードがどう動作するかではなくコードが何を主張するかについて、両者の間には微妙な差があります。
 
-1. `f` は関数 `reverse` である
-2. `f` はリストを `reverse` させる
+. `f` は関数 `reverse` である
+. `f` はリストを `reverse` させる
 
 最初はポイントフリースタイルを見て混乱し、次に面白くなってきて、さらには乱用するようになり、それから適量に落ち着く、というのが初心者が辿るプロトタイピングと修正のサイクルです。
 
-## 参考文献
+=== 参考文献
 
-* [Frege Language Reference](http://www.frege-lang.org/doc/Language.pdf)
-* [Declaration of the $ function](https://github.com/Frege/frege/blob/master/frege/prelude/PreludeBase.fr#L109-109) (where line numbers might change)
+[horizontal]
+Frege Language Reference:: http://www.frege-lang.org/doc/Language.pdf
+Declaration of the $ function:: https://github.com/Frege/frege/blob/master/frege/prelude/PreludeBase.fr#L109-109 (where line numbers might change)
