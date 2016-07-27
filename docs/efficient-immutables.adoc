@@ -46,9 +46,8 @@ fregeDierk  = javaDierk.{ language = "Frege"  }
 
 しかし、三つのコピーが存在するものの、以下の図で表されるような _構造の共有 (structural sharing)_ が自動的に行われています。
 
-![構造の共有による効率的な不変データの保持](efficient-immutables.png)
-
-Fig 1: 構造の共有による効率的な不変データの保持
+.構造の共有による効率的な不変データの保持
+image::efficient-immutables.png[]
 
 我々が扱うものは _結果的_ には値であるため、例として上に挙げた String だけでなく、任意の値を _常に_ 安全に共有することができます。このような性質は、どんな種類であれ静かに忍び寄る可変性を許してしまうと達成できなかったであろうことに注意しましょう。
 
@@ -56,17 +55,18 @@ Fig 1: 構造の共有による効率的な不変データの保持
 
 このような上記を逸したシナリオでも、メモリ消費は、下記画像の虫眼鏡内に見えている青いグラフの右端の小さな山の分だけでしかありません。
 
-![効率的で GC と相性の良いメモリ消費](immutable-memory-consumption.png)
-
-Fig 2: 効率的で GC と相性の良いメモリ消費
+.効率的で GC と相性の良いメモリ消費
+image::immutable-memory-consumption.png[]
 
 不変データ構造は、シングルスレッド環境において API 提供側と使用側で共有するだけでなく、_並行実行_ や大規模な _並列計算_ においても安全に共有可能であることは言うまでもありません。
 
 そのために支払うわずかな追加コストは、一時メモリが少し多めに必要になることと、ガベージコレクションのための余分な時間がいくらか必要になるということだけです。
 
-Important: 不変性がデフォルト : 一番いいのは、不変性を有効にするために一文字も書く必要がないということです。全自動で行われます。
+.不変性がデフォルト
+[IMPORTANT]
+一番いいのは、不変性を有効にするために一文字も書く必要がないということです。全自動で行われます。
 
-## さらに進んだ考察
+=== さらに進んだ考察
 
 何重にも入れ子になったデータ構造のコピーや比較は、高コストな操作として知られています。不変データ構造は多くの場合、参照ひとつのみをコピーすることでこの負担を軽減することができます。「コピーコンストラクタ」と呼ばれる仕組みはその良い例です。与えられた値をセットする際には、最も浅い参照のみがコピーされますが、それでもやはり _ディープコピー_ になります。
 
@@ -75,10 +75,8 @@ Frege で使用される標準的なデータ構造はすべて不変です。�
 ここで、_dierk_ が現在、考えるのに使っている言語は何でしょう？ 三種類の参照のうちどれが使用されるのでしょうか？ 各時点で「最新版」の `Person` を一つだけ保持したほうがよいのではないでしょうか？
 このような例については先の記事で扱います。また、可変な状態によって不変データ構造が破壊されることを防ぐ Frege の「からくり」についても説明することになるでしょう。
 
-## 参考文献
+=== 参考文献
 
-* Chris Okasaki
-    + "Purely Functional Data Structures" [http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504](http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504)
-* Rich Hickey
-    + Keynote: The Value of Values [http://www.infoq.com/presentations/Value-Values](http://www.infoq.com/presentations/Value-Values)
-    + Persistent data structures [https://www.youtube.com/watch?v=hb3rurFxrZ8](https://www.youtube.com/watch?v=hb3rurFxrZ8) (min 22 ff)
+[horizontal]
+Chris Okasaki:: "Purely Functional Data Structures" http://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504
+Rich Hickey:: Keynote: The Value of Values http://www.infoq.com/presentations/Value-Values Persistent data structures https://www.youtube.com/watch?v=hb3rurFxrZ8 (min 22 ff)
