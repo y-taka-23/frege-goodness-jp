@@ -4,7 +4,7 @@
 * [QuickCheck で性質テスト](docs/a-simple-quickcheck-property.adoc)
 * [静かなる記号たち](docs/silent-notation.adoc)
 * [素晴らしきかな不変性](docs/efficient-immutables.adoc)
-* [お手軽入出力](docs/easy-io.md)
+* [お手軽入出力](docs/easy-io.adoc)
 * [リストとパス](docs/list-and-path.md)
 * [Maybe 付きのパス](docs/the-maybe-path.md)
 * [FizzBuzz 問題](docs/fizz-buzz.md)
