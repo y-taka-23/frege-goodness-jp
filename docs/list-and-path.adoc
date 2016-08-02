@@ -65,39 +65,41 @@ prices = [ (GOOG, 100) , (MSFT, 200) , (APPL, 300) , (CANO, 400) ]
 
 `NOOB` が株価のリストの中に登場しないことに注意してください。後で、リストに存在しない銘柄の株価を取得するテストの際にこの `NOOB` を使います。
 
-  ポジションの評価額を算出する `value` を用いてまずは書いてみましょう。 リストに含まれる各銘柄の価格に、何株保有しているかを掛け合わせます。
+ポジションの評価額を算出する `value` を用いてまずは書いてみましょう。 リストに含まれる各銘柄の価格に、何株保有しているかを掛け合わせます。
 
- Caption: ポジションを評価するテスト
-
- ```
- import Test.QuickCheck
+.ポジションを評価するテスト
+[source, haskell]
+----
+import Test.QuickCheck
 
 zeroValue     = once     $             0 == value (Position 5 NOOB)
 multipleValue = property $ \n -> 100 * n == value (Position n GOOG)
- ```
+----
 
- Note: テストを書く際、`NOOB` のような、つまり銘柄に対して株価が見つからない場合に何を値とすべきかについて考えることになります。ここでは `0` としましたが、これは手作業によるアプリケーションレベルの解決になっています。より広く使用されるライブラリ関数ならば、むしろ `Maybe` を返すなどによってエラーを明示するべきです。
+[NOTE]
+テストを書く際、`NOOB` のような、つまり銘柄に対して株価が見つからない場合に何を値とすべきかについて考えることになります。ここでは `0` としましたが、これは手作業によるアプリケーションレベルの解決になっています。より広く使用されるライブラリ関数ならば、むしろ `Maybe` を返すなどによってエラーを明示するべきです。
 
- テストファーストで書く場合、コンパイラは `value` 関数が存在しないと言ってきます。`Data.List` にある `lookup` 関数を用いて、株式銘柄の価格を見つけるような `value` の定義を与えましょう。
+テストファーストで書く場合、コンパイラは `value` 関数が存在しないと言ってきます。`Data.List` にある `lookup` 関数を用いて、株式銘柄の価格を見つけるような `value` の定義を与えましょう。
 
- Caption: value 関数の実装
-
- ```
- import Data.List (lookup)
+.value 関数の実装
+[source, haskell]
+----
+import Data.List (lookup)
 
 value :: Position -> Int
 value position = calculate $ lookup position.ticker prices where
     calculate Nothing      = 0
     calculate (Just price) = position.soMany * price
- ```
+----
 
- `lookup` が失敗する可能性があるため、`Maybe` を返します。またここでは、`Nothing` と実際の価格を持つ`Just` との場合分けによって `calculate` 関数を局所定義することで、失敗する可能性を表現しています (`maybe` を使って `maybe 0` のようにするやや地味な手もありますが……)。
+`lookup` が失敗する可能性があるため、`Maybe` を返します。またここでは、`Nothing` と実際の価格を持つ`Just` との場合分けによって `calculate` 関数を局所定義することで、失敗する可能性を表現しています (`maybe` を使って `maybe 0` のようにするやや地味な手もありますが……)。
 
-Caption: なぜ null ではないのか？
+.なぜ null ではないのか？
+****
+Java の開発者であれば、リストへの参照が失敗した際には単に`null` を返せばよいのではないかと疑問に思うかもしれません。しかしご存知のように、後々呼び出し側が null チェックを忘れたとき、 *NullPointerException* が発生しやすくなります。しかも null がセットされた地点とは遠く離れた場所で。
 
-Java の開発者であれば、リストへの参照が失敗した際には単に`null` を返せばよいのではないかと疑問に思うかもしれません。しかしご存知のように、後々呼び出し側が null チェックを忘れたとき、 _NullPointerException_ が発生しやすくなります。しかも null がセットされた地点とは遠く離れた場所で。
-
-Frege では _null は存在せず_、したがってもはや _NullPointerException も存在しません_！
+Frege では _null は存在せず_、したがってもはや *NullPointerException も存在しません*！
+****
 
 ## 銀行の規模はどれくらい？
 
