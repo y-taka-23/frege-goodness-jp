@@ -101,20 +101,21 @@ Java の開発者であれば、リストへの参照が失敗した際には単
 Frege では _null は存在せず_、したがってもはや *NullPointerException も存在しません*！
 ****
 
-## 銀行の規模はどれくらい？
+=== 銀行の規模はどれくらい？
 
 銀行同士はしばしば _保有資産_、すなわちすべての顧客の、すべてのポートフォリオの、すべてのポジションの総評価額で比較されます。
 
 はい、われわれはこの総額を計算できるデータをすでにもっていますね！ データ取得に必要な関数をその型と合わせて以下に示します。
 
-Caption: 関数とその型の組み合わせ
-
-| 番号 | 関数                 | 型                       |
-|:----|:----------------------|:-------------------------|
-| <1> | `bank.clients`        | `[Client]`               |
-| <2> | `Clients.portfolios`  | `Client → [Portfolio]`   |
-| <3> | `Portfolio.positions` | `Portfolio → [Position]` |
-| <4> | `value position`      | `Position → Int`         |
+.関数とその型の組み合わせ
+[options="header", cols="^1,2*<5"]
+|===
+| 番号 | 関数                  | 型
+|<1>   | `bank.clients`        | `[Client]`
+|<2>   | `Clients.portfolios`  | `Client -> [Portfolio]`
+|<3>   | `Portfolio.positions` | `Portfolio -> [Position]`
+|<4>   | `value position`      | `Position -> Int`
+|===
 
 おや、面白いことが見て取れますね。_それぞれの関数は要素のリストを返し、その要素の一つ一つが次の関数の入力になっています_。ということは、このパターンを一般化し、「[お手軽入出力](easy-io.md)」でやったように _bind_ 関数を使用することができそうです。
 
