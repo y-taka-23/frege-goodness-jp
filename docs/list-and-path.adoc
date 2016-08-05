@@ -117,28 +117,29 @@ Frege では _null は存在せず_、したがってもはや *NullPointerExcep
 |<4>   | `value position`      | `Position -> Int`
 |===
 
-おや、面白いことが見て取れますね。_それぞれの関数は要素のリストを返し、その要素の一つ一つが次の関数の入力になっています_。ということは、このパターンを一般化し、「[お手軽入出力](easy-io.md)」でやったように _bind_ 関数を使用することができそうです。
+おや、面白いことが見て取れますね。*それぞれの関数は要素のリストを返し、その要素の一つ一つが次の関数の入力になっています*。ということは、このパターンを一般化し、「<<easy-io.adoc,お手軽入出力>>」でやったように _bind_ 関数を使用することができそうです。
 
 <1> と <2> をバインドすると、
 
-```
+----
    <1>             <2>                 return type
 [Client] -> (Client -> [Portfolio]) -> [Portfolio]
-```
+----
+
 <2> と <3> をバインドすると、
 
-```
+----
     <2>                   <3>               return type
 [Portfolio] -> (Portfolio -> [Position]) -> [Position]
-```
+----
 
 見ての通り、背後には以下のような型を持つ _bind_ によって一般化されたパターンがあります。
 
-```
+----
 [a] → (a → [b]) → [b]
-```
+----
 
-嬉しいことに、すでに _bind_ 関数が使える形になっていて、「[お手軽入出力](easy-io.md)」と同じように `>>=` で記述することができます。
+嬉しいことに、すでに _bind_ 関数が使える形になっていて、「<<easy-io.adoc,お手軽入出力>>」と同じように `>>=` で記述することができます。
 
 <1> と <2> を組み合わせると `bank.clients >>= Client.portfolios`
 
@@ -146,54 +147,56 @@ Frege では _null は存在せず_、したがってもはや *NullPointerExcep
 
 <1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.clients >>= Client.portfolios >>= Portfolio.positions`
 
-Important: ジャジャーン！ これで銀行が持つすべての顧客の、すべてのポートフォリオの、すべてのポジションを表すことができるシンプルな「パス式」ができあがりました。
+.ジャジャーン！
+[IMPORTANT]
+これで銀行が持つすべての顧客の、すべてのポートフォリオの、すべてのポジションを表すことができるシンプルな「パス式」ができあがりました！
 
 最終的に確認しておくと、以下が _bind_ を用いてポジションに対してそれぞれの価格を算出し、すべて加算することで保有資産を算出する仕組みの最初のバージョンです。
 
-Caption: 銀行の保有資産算出、最初のバージョン
-
-```
+.銀行の保有資産算出、最初のバージョン
+[source, haskell]
+----
 assetsUnderManagement1 = sum $
     map value $
         bank.clients >>= Client.portfolios >>= Portfolio.positions
-```
+----
 
-## 「do」記法と内包表記
+=== 「do」記法と内包表記
 
-これも「[お手軽入出力](easy-io.md)」で見たとおり、_bind_ では 「do」 記法を利用することができます。これを使うと、以下のようなコードになります。
+これも「<<easy-io.adoc,お手軽入出力>>」で見たとおり、_bind_ では 「do」 記法を利用することができます。これを使うと、以下のようなコードになります。
 
-Caption: 「do」 記法を利用した銀行の保有資産算出
-
-```
+.「do」 記法を利用した銀行の保有資産算出
+[source, haskell]
+----
 assetsUnderManagement2 = sum $
     map value do
         client    <- bank.clients
         portfolio <- client.portfolios
         portfolio.positions
-```
+----
 
-ここでは、矢印記法 `←` によって計算中の一つ一つの値がリストから _取り出されて_ います。でもちょっと待ってください！ これは完全にどこかで見聞きしたことがある感じですね。リスト内包表記でも同じことができます。
+ここでは、矢印記法 `<-` によって計算中の一つ一つの値がリストから _取り出されて_ います。でもちょっと待ってください！ これは完全にどこかで見聞きしたことがある感じですね。リスト内包表記でも同じことができます。
 
-Caption: リスト内包記法を利用した銀行の保有資産算出
-
-```
+.リスト内包記法を利用した銀行の保有資産算出
+[source, haskell]
+----
 assetsUnderManagement3 = sum
     [value position |
         client    <- bank.clients,
         portfolio <- client.portfolios,
         position  <- portfolio.positions
     ]
-```
+----
 
 実際、両者の記法は等価で、単にスタイルが異なるだけです。
 
-## パスの問い合わせを SQL 風に
+=== パスの問い合わせを SQL 風に
 
 _すべての_ 資産ではなく、Canoo 社がこの銀行に保有している資産の総額のみに興味がある場合を考えてみましょう。リスト内包表記を使えばこれは簡単で、また面白いことに SQL と似た部分があることがわかります。
 
-Caption: クエリとしてのリスト内包表記
-
-```
+.クエリとしてのリスト内包表記
+[source, haskell]
+----
 allCanoo3 = sum
     [value position |                       -- SELECT
         client    <- bank.clients,          -- FROM
@@ -201,15 +204,15 @@ allCanoo3 = sum
         position  <- portfolio.positions,
         position.ticker == CANO             -- WHERE
     ]
-```
+----
 
 ここでは `value` 関数は SQL でいう射影、`position` は選択、リストは元データであり、ガードが where 節として働きます。
 
-「do」記法が等価になることはすでに述べました。この場合、where 節よる絞り込みは以下のようになります。
+「do」記法が等価になることはすでに述べました。この場合、where 節による絞り込みは以下のようになります。
 
-Caption: 絞り込みつきの do 記法
-
-```
+.絞り込みつきの do 記法
+[source, haskell]
+----
 allCanoo2 = sum $
     map value do
         client    <- bank.clients
@@ -217,22 +220,24 @@ allCanoo2 = sum $
         filter canoo portfolio.positions
     where
         canoo position = position.ticker == CANO
-```
+----
 
 スタイルが微妙に異なることがわかるでしょう。
 
 最後に、パスを用いて絞り込みを表現すると以下のようになります。
 
-```
+.絞り込みつきのパス問い合わせ
+[source, haskell]
+----
 allCanoo1 = sum $
     map value $
         bank.clients >>= Client.portfolios >>= filter canoo . Portfolio.positions where
             canoo position = position.ticker == CANO
-```
+----
 
 このような絞り込みはパス中のどの部分でも書くことができ、また絞り込み以外にもパスを評価する過程でリストに関数をマップしても構いません。
 
-## まとめ
+=== まとめ
 
 今回は日常のビジネスシーンから始めて、リストの持つ以下のような奥深い性質を見ることができました。
 
@@ -245,9 +250,12 @@ allCanoo1 = sum $
 
 他の言語であっても、パスによる表現が簡潔に書けることがあります。今回で言えば、例えば Groovy の GPath では `bank.clients*.portfolios*.positions.findAll{it.ticker == CANO}*.value().sum()` となります。ただし、コードの見た目のみで比較できるわけではありません。
 
-決め手は遅延評価: Frege が持つ重要な長所として、遅延評価があります。巨大なグラフは決してそのまま具現化されるわけではなく、「(実際には存在しない) 問い合わせ結果のリスト」も具現化されません。パスは巨大なデータ構造ではなく、評価のストリームを組み立てるのです。
+.決め手は遅延評価
+****
+Frege が持つ重要な長所として、遅延評価があります。巨大なグラフは決してそのまま具現化されるわけではなく、「(実際には存在しない) 問い合わせ結果のリスト」も具現化されません。パスは巨大なデータ構造ではなく、評価のストリームを組み立てるのです。
+****
 
-## 参考文献
-
-* [Groovy GPath](http://docs.groovy-lang.org/latest/html/documentation/#gpath_expressions)
-* [Haskell Wikibook](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/List)
+=== 参考文献
+[horizontal
+Groovy GPath:: http://docs.groovy-lang.org/latest/html/documentation/#gpath_expressions
+Haskell Wikibook:: https://en.wikibooks.org/wiki/Haskell/Understanding_monads/List
