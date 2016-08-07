@@ -47,21 +47,21 @@ noPortfolioBank = Bank { star = Just Client { star = Nothing } }
 
 星付き顧客のお気に入りの銘柄に投資して一山当てる、なんてことを企んでみましょうか。そのためにはまず、該当する銘柄を見つける必要があります。
 
-## はじめの一歩
+=== はじめの一歩
 
 星付きの銘柄を見つけるためには、星付き顧客 (もしいれば) の星付きポートフォリオ (もしあれば) の星付きポジション (もしあれば) を見つけなければなりません。
 
 この目的を達成するために、`starTicker` 関数を作りましょう。この関数は `bank` を引数に取り、もし星付きの銘柄が存在すればそれを `Just` の中に入れて返し、存在しなければ `Nothing` を返します。 要するに、以下のような型を持つ関数です。
 
-```
+----
 starTicker :: Bank -> Maybe Ticker
-```
+----
 
 これを直接実装する方法はいくつも (コンストラクタによる場合分け、case 式、_if_ を入れ子にする、_maybe_ 関数) ありますが、どれを選んだとしても、下に挙げる実装に似たごちゃごちゃした解法になります。
 
-Caption: 動作するが読みにくい実装
-
-```
+.動作するが読みにくい実装
+[source, haskell]
+----
 starTicker bank = starPortfolio bank.star where
     starPortfolio Nothing = Nothing
     starPortfolio (Just client) = starPosition client.star where
@@ -69,19 +69,19 @@ starTicker bank = starPortfolio bank.star where
         starPosition (Just portfolio) = starTicker portfolio.star where
             starTicker Nothing = Nothing
             starTicker (Just position) = Just position.ticker
-```
+----
 
 これが期待通りに動作するかどうかを確認してみましょう。処理中のあちこちに _Nothing_ が現れる可能性があり、その場合にエラーとならないよう保証しておく必要があるので忘れずに。
 
-Caption: テストする
-
-```
-mport Test.QuickCheck
+.テストする
+[source, haskell]
+----
+import Test.QuickCheck
 
 star1 = once $ starTicker starBank        == Just CANO
 star2 = once $ starTicker noStarBank      == Nothing
 star3 = once $ starTicker noPortfolioBank == Nothing
-```
+----
 
 このアプローチでも動作はしますが、明らかに改善の余地ありです。
 
