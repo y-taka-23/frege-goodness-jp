@@ -85,78 +85,83 @@ star3 = once $ starTicker noPortfolioBank == Nothing
 
 このアプローチでも動作はしますが、明らかに改善の余地ありです。
 
-## 表記法の改善
+=== 表記法の改善
 
 ここは一度戻って、今回何をしているのかについて再考しましょう。
 
-「[リストとパス](list-and-path.md)」でやったのと同じように、登場する関数とその型を確認してみます。
+「<<list-and-path.adoc,リストとパス>>」でやったのと同じように、登場する関数とその型を確認してみます。
 
-Table 1: 関数とその型の組み合わせ
-
-| 番号 | 関数             | 型                           |
-|:----|:------------------|:-----------------------------|
-| <1> | `bank.star`       | `Maybe Client`               |
-| <2> | `Clients.star`    | `Client → Maybe Portfolio`   |
-| <3> | `Portfolio.star`  | `Portfolio → Maybe Position` |
-| <4> | `Position.ticker` | `Position → Ticker`          |
+.関数とその型の組み合わせ
+[options="header", cols="^1,2*<5"]
+|===
+| 番号 | 関数 | 型
+| <1> | `bank.star`       | `Maybe Client`
+| <2> | `Clients.star`    | `Client -> Maybe Portfolio`
+| <3> | `Portfolio.star`  | `Portfolio -> Maybe Position`
+| <4> | `Position.ticker` | `Position -> Ticker`
+|===
 
 各関数は、次の関数の引数の型に _Maybe_ をつけたものを返します。したがっておそらく、このパターンを一般化して、関数を _バインド_ することで一行にまとめることができるはずです。
 
-<1> と <2> をバインドすると
+まず <1> と <2> をバインドすると
 
-```
+----
 <1>             <2>                            return type
 Maybe Client -> (Client -> Maybe Portfolio) -> Maybe Portfolio
-```
+----
 
-<2> と <3> をバインドすると
+次に <2> と <3> をバインドすると
 
-```
+----
 <2>                <3>                              return type
 Maybe Portfolio -> (Portfolio -> Maybe Position) -> Maybe Position
-```
+----
 
 見ての通り、背後には以下のような型を持つ _bind_ によって一般化されたパターンがあります。
 
-```
+----
 Maybe a → (a → Maybe b) → Maybe b
-```
+----
 
-嬉しいことに、すでに _bind_ 関数が使える形になっていて、「[お手軽入出力](easy-io.md)」や「[リストとパス](list-and-path.md)」と同じように `>>=` で記述することができます。
+嬉しいことに、すでに _bind_ 関数が使える形になっていて、「<<easy-io.adoc,お手軽入出力>>」や「<<list-and-path.adoc,リストとパス>>」と同じように `>>=` で記述することができます。
 
-<1> と <2> を組み合わせると `bank.star >>= Client.star`
+まず <1> と <2> を組み合わせると `bank.star >>= Client.star`
 
-<2> と <3> を組み合わせると `Client.star >>= Portfolio.star`
+次に <2> と <3> を組み合わせると `Client.star >>= Portfolio.star`
 
-<1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.star >>= Client.star >>= Portfolio.star`
+そして <1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.star >>= Client.star >>= Portfolio.star`
 
-Important: ジャジャーン！ 今回もシンプルな「パス」表現にたどり着きました。今回は、オプショナルな _星付き_ 顧客の、オプショナルな _星付き_ ポートフォリオの、オプショナルな _星付き_ 　ポジションに対するパスとなっています。
+.ジャジャーン！
+[IMPORTANT]
+今回もシンプルな「パス」表現にたどり着きました。今回は、オプショナルな _星付き_ 顧客の、オプショナルな _星付き_ ポートフォリオの、オプショナルな _星付き_ ポジションに対するパスとなっています。
 
 仕上げとして、一つのパスにまとめたものが以下です。
 
-Caption: パス内の Maybe 値の連鎖
-
-```
+.パス内の Maybe 値の連鎖
+[source, haskell]
+----
 starTicker bank =
     bank.star >>= Client.star >>= Portfolio.star >>= \position -> Just position.ticker
-```
+----
 
 `Position.ticker` も _Maybe_ 型だったらもっとすっきりと書けたでしょう。しかし銘柄がないポジションは存在し得ないため、こちらのほうがリアリティがあります。また、関数に渡す引数をラムダ式のパラメータとして束縛する例としても勉強になります。
 
-型を確認するのは簡単です。「[静かなる記号たち](silent-notation.md)」ですでに見たように、
+型を確認するのは簡単です。「<<silent-notation.md,静かなる記号たち>>」ですでに見たように、
 
-```
+[source, haskell]
+----
 -- the type of the anonymous lambda expression is
 -- Position -> Maybe Ticker
 \position -> Just position.ticker
-```
+----
 
 は単なる
 
-```
+[source, haskell]
+----
 foo :: Position -> Maybe Ticker
 foo position = Just position.ticker
-```
+----
 
 の別表記で、いい関数名をわざわざ考える労力を使わずに済ませることができます。
 
