@@ -6,7 +6,7 @@
 * [素晴らしきかな不変性](docs/efficient-immutables.adoc)
 * [お手軽入出力](docs/easy-io.adoc)
 * [リストとパス](docs/list-and-path.adoc)
-* [Maybe 付きのパス](docs/the-maybe-path.md)
+* [Maybe 付きのパス](docs/the-maybe-path.adoc)
 * [FizzBuzz 問題](docs/fizz-buzz.md)
     + [FizzBuzz 問題ふたたび](docs/fizzBuzz-revisited.md)
 * [ドット記法の威力](docs/the-power-of-the-dot.md)
