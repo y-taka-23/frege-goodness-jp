@@ -119,14 +119,14 @@ Frege では _null は存在せず_、したがってもはや *NullPointerExcep
 
 おや、面白いことが見て取れますね。*それぞれの関数は要素のリストを返し、その要素の一つ一つが次の関数の入力になっています*。ということは、このパターンを一般化し、「<<easy-io.adoc,お手軽入出力>>」でやったように _bind_ 関数を使用することができそうです。
 
-<1> と <2> をバインドすると、
+まず <1> と <2> をバインドすると、
 
 ----
    <1>             <2>                 return type
 [Client] -> (Client -> [Portfolio]) -> [Portfolio]
 ----
 
-<2> と <3> をバインドすると、
+一方 <2> と <3> をバインドすると、
 
 ----
     <2>                   <3>               return type
@@ -141,11 +141,11 @@ Frege では _null は存在せず_、したがってもはや *NullPointerExcep
 
 嬉しいことに、すでに _bind_ 関数が使える形になっていて、「<<easy-io.adoc,お手軽入出力>>」と同じように `>>=` で記述することができます。
 
-<1> と <2> を組み合わせると `bank.clients >>= Client.portfolios`
+まず <1> と <2> を組み合わせると `bank.clients >>= Client.portfolios`
 
-<2> と <3> を組み合わせると `Client.portfolios >>= Portfolio.positions`
+次に <2> と <3> を組み合わせると `Client.portfolios >>= Portfolio.positions`
 
-<1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.clients >>= Client.portfolios >>= Portfolio.positions`
+そして <1> と <2> を組み合わせ、さらにそこに <3> を組み合わせると `bank.clients >>= Client.portfolios >>= Portfolio.positions`
 
 .ジャジャーン！
 [IMPORTANT]
@@ -256,6 +256,6 @@ Frege が持つ重要な長所として、遅延評価があります。巨大�
 ****
 
 === 参考文献
-[horizontal
+[horizontal]
 Groovy GPath:: http://docs.groovy-lang.org/latest/html/documentation/#gpath_expressions
 Haskell Wikibook:: https://en.wikibooks.org/wiki/Haskell/Understanding_monads/List
