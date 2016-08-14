@@ -7,7 +7,7 @@
 * [お手軽入出力](docs/easy-io.adoc)
 * [リストとパス](docs/list-and-path.adoc)
 * [Maybe 付きのパス](docs/the-maybe-path.adoc)
-* [FizzBuzz 問題](docs/fizz-buzz.md)
+* [FizzBuzz 問題](docs/fizz-buzz.adoc)
     + [FizzBuzz 問題ふたたび](docs/fizzBuzz-revisited.md)
 * [ドット記法の威力](docs/the-power-of-the-dot.md)
     + [アンダースコア・ドット記法](docs/the-underscore-dot-notation.md)

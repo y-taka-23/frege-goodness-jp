@@ -1,4 +1,4 @@
-# FizzBuzz 問題
+== FizzBuzz 問題
 
 もともとは子供の遊びですが、簡単なプログラミングの例題として使用される次のようなゲームがあります。
 
@@ -9,71 +9,74 @@
 
 この例は、動作としてはごく自明なものであるにもかかわらず、関数型設計とモジュール化について洞察を与えてくれます。必要なのは、思い切って従来のアプローチを問い直し、コンフォートゾーンから脱出する勇気だけです。
 
-## 部品の準備
+=== 部品の準備
 
 この問題を解決する方法はいくつもありますが、今回採用する方法は、命令型オブジェクト指向プログラミング方面の人にとってはやや馴染みがないかもしれません。無限リストを組み合わせて使います。
 
 まず必要となるのは数字の無限リストです。頻繁に使うので、Frege では専用の書き方が用意されています。
 
-Caption: すべての数字
-
-```
+.すべての数字
+[source, haskell]
+----
 [1..]
-```
+----
 
 次に、fizz の条件を満たすために「3 個ごとの要素すべて」のようなパターンが必要です。3 個ごとに「fizz」になっており、残りはすべて空文字列であるような、無限に繰り返される文字列のリストを使用します。
 
-Caption: 無限 fizz パターン
-
-```
+.無限 fizz パターン
+[source, haskell]
+----
 fizzes = cycle ["", "", "fizz"]
-```
+----
 
 buzz のパターンがどのようになるかはもうわかるでしょう。
 
-Caption: 無限 buzz パターン
-
-```
+.無限 buzz パターン
+[source, haskell]
+----
 buzzes = cycle ["", "", "", "", "buzz"]
-```
+----
 
 これで必要な部品は揃いました。自然に仕様に沿ったものになっていることに注意しましょう。
 
-## ルールを組み合わせる
+=== ルールを組み合わせる
 
 揃えた部品は組み立てねばなりません。まず以下のようなパターンを作り出すために、fizz パターンと buzz パターンを組み合わせる必要があります。
 
-```
-"", "", "fizz", "", "buzz", "fizz", "", …​
-```
+----
+"", "", "fizz", "", "buzz", "fizz", "", …
+----
 
 これは、単に fizz パターンと buzz パターンを要素ごとに連結し、新しい無限リストを作り出せば OK です。
 
-```
+----
 fizzes:  "", "", "fizz", "", "",     "fizz", "", ...
 buzzes:  "", "", "",     "", "buzz", "",     "", ...
 (++)  :  "", "", "fizz", "", "buzz", "fizz", "", ...
-```
+----
 
-Caption: 無限 fizz-buzz パターン
-
-```
+.無限 fizz-buzz パターン
+[source, haskell]
+----
 pattern = zipWith (++) fizzes buzzes
-```
+----
 
 このパターンからは、原始的なルールを組み合わせることで、新しい _ルール_ が作り出される様子が見て取れます。
 
-マニア向け情報 : ここでは、文字列の先頭または末尾に空文字列を連結しても、元の文字列は変わらないという事実を用いています。実は文字列は連結について _モノイド_ 構造をなし、"" はその単位元です。またこの演算は結合則も満たしますが、これは 3 つ以上のルールを組み合わせようとした場合に必要になる性質です。
+.マニア向け情報
+****
+ここでは、文字列の先頭または末尾に空文字列を連結しても、元の文字列は変わらないという事実を用いています。実は文字列は連結について _モノイド_ 構造をなし、"" はその単位元です。またこの演算は結合則も満たしますが、これは 3 つ以上のルールを組み合わせようとした場合に必要になる性質です。
+****
 
 以上により、無限 fizzbuzz パターンが手に入りました。
 
-## 数字と組み合わせる
+=== 数字と組み合わせる
 
 それでは最終的な結果となる無限リストを得るために、さっきのパターンを数字の無限リストに重ね合わせます。
 
-Caption: 最終的な　FizzBuzz 問題の解
-
-```
+.最終的な　FizzBuzz 問題の解
+[source, haskell]
+----
 fizzes   = cycle ["", "", "fizz"]
 buzzes   = cycle ["", "", "", "", "buzz"]
 pattern  = zipWith (++) fizzes buzzes
@@ -81,28 +84,28 @@ fizzbuzz = zipWith combine pattern [1..] where
     combine word number = if null word
                              then show number
                              else word
-```
+----
 
-Note: 上で使用している「null」は、null ポインタへの参照ではなく、「null」という名前の関数を表しています。この関数は、引数が空リスト (例えば空文字列) であるときに真を返します。
+NOTE: 上で使用している「null」は、null ポインタへの参照ではなく、「null」という名前の関数を表しています。この関数は、引数が空リスト (例えば空文字列) であるときに真を返します。
 
 このような無限リストは極めて使い勝手がよいものです。無限リストを組み合わせる方法についてはすでに 2 回見てきましたが、フィルタリングしたり出力するために抜き出したりといったことも簡単にできます。
 
-Caption: 無限リストの一部のみ表示する
-
-```
+.無限リストの一部のみを表示する
+[source, haskell]
+----
 main _ = do
     println $ take 5 $ drop 200 fizzbuzz
 
 --  ["fizz", "202", "203", "fizz", "buzz"]
-```
+----
 
-## 考察
+=== 考察
 
 Web 検索すると、以下に挙げるような解答が見つかるでしょう。実際に検索して一番目にヒットしたものです。
 
-Caption: 命令型 FizzBuzz
-
-```
+.命令型 FizzBuzz
+[source, java]
+----
 public class FizzBuzz{
     public static void main(String[] args){
         for(int i= 1; i <= 100; i++){
@@ -118,76 +121,66 @@ public class FizzBuzz{
         }
     }
 }
-```
+----
 
 この命令型の解答の方が、大半の読者 (最近まで自分もそうでした) にとっては馴染みがあるでしょう。しかし、シンプルでモジュール化された Frege による解答と比較して、命令型の解答はよりややこしいものになっているという動かしがたい事実があります。
 
-### 条件分岐
-
+条件分岐::
 コード中に条件分岐が多くなるほどプログラムエラーが発生しやすくなります。条件分岐を入れ子にして使用した場合、エラーの可能性が (少なくとも自分にとっては) 指数的に増えます。
 
 * 命令型：条件分岐 4 つ、うち 3 つは入れ子 (複雑度 3)
 * Frege：条件分岐 1 つ (複雑度 0)
 
-### 演算子
-
+演算子::
 コード中に演算子が多くなるほどプログラムエラーが発生しやすくなります。演算子を組み合わせて使用した場合、エラーの可能性が (少なくとも自分にとっては) 指数的に増えます。
 
 * 命令型：7 つ (i % 3 == 0 && i % 5 == 0 を使用した場合は 10)
 * Frege：1 つ
 
-### 逐次処理
-
+逐次処理::
 演算の順番を間違えた時に何か問題が起こるでしょうか？
 
-* 命令型： 最初に % 15、次に % 3 と % 5、それから数字のケースの順番で処理 __しなければならない__。それ以外の順番は __誤り__ である。
-* Frege：__任意の__ 順番に行を並べても __同じように正しい__ (参照透過性)。
+* 命令型： 最初に % 15、次に % 3 と % 5、それから数字のケースの順番で処理 *しなければならない*。それ以外の順番は *誤り* である。
+* Frege：*任意の* 順番に行を並べても *同じように正しい* (参照透過性)。
 
-### 保守性
+保守性::
+* fizzbuzz 数列の他の部分を表示したい場合、コード中のどの部分に変更を入れる必要があるでしょう？
 
-fizzbuzz 数列の他の部分を表示したい場合、コード中のどの部分に変更を入れる必要があるでしょう？
+** 命令型：ループを書き直す必要がある
+** Frege：数字をひとつ書き直せばよい
 
-* 命令型：ループを書き直す必要がある
-* Frege：数字をひとつ書き直せばよい
+* `stdout` ではなく `stderr` に出力する場合、どの程度コードに変更が生じますか？
 
-`stdout` ではなく `stderr` に出力する場合、どの程度コードに変更が生じますか？
+** 命令型：4 行
+** Frege：1 行
 
-* 命令型：4 行
-* Frege：1 行
+* ルールを変更する際にコードに入れなければならない変更はどの程度？ 3 と 5 に加えて新しい倍数が含まれる場合には？
 
-ルールを変更する際にコードに入れなければならない変更はどの程度？ 3 と 5 に加えて新しい倍数が含まれる場合には？
+** 命令型：全体を書き直す必要がある (演算の順番も複雑になる)
+** Frege：変更箇所は小さく局所的
 
-* 命令型：全体を書き直す必要がある (演算の順番も複雑になる)
-* Frege：変更箇所は小さく局所的
-
-### 仕様
-
+仕様::
 どの程度、実装が仕様をよく反映したものになっているでしょうか？
 
 * 命令型：まったく直接的でない (法 15 はどこから来たもの？)
 * Frege：厳密に一対一対応している
 
-### インクリメンタル開発
+インクリメンタル開発::
+Frege による解答はインクリメンタルに、すなわち一行ずつ変更して開発を進めることができます。すでに書いた行を変更するために逆戻りすることは決してありません。再コンパイルの必要すらないのです！ これは大きなポイントで、ビルド済みのコードにはバグが混入しえないということを意味します。命令型の解答では、変更ごとに既存コードの書き直しと再コンパイルが必要です。
 
-Frege による解答はインクリメンタルに、すなわち一行ずつ変更して開発を進めることができます。すでに書いた行を変更するために逆戻りすることは決してありません。再コンパイルの必要すらないのです！ これは大きなポイントで、ビルド済みのコードにはバグが混入しえないということを意味します。
+テスト容易性::
+Frege による解答は行ごとにテストすることができます。命令型の解答には副作用が組み込まれているため、テストすることは極めて困難です。しかしこの点がなんとかなりさえすれば、全体をまとめて一度にテストすることなら可能です。
 
-命令型の解答では、変更ごとに既存コードの書き直しと再コンパイルが必要です。
-
-### テスト容易性
-
-Frege による解答は行ごとにテストすることができます。
-
-命令型の解答には副作用が組み込まれているため、テストすることは極めて困難です。しかしこの点がなんとかなりさえすれば、全体をまとめて一度にテストすることなら可能です。
-
-ジョン・ヒューズはその有名な論文 "Why functional programming matters" の中で、データの生成と使用を分離し、シンプルな部品を組み合わせてロジックを組み立てることによって得られる __モジュール性の改善__ こそが主たる利点のひとつであると指摘しました。
+ジョン・ヒューズはその有名な論文 "Why functional programming matters" の中で、データの生成と使用を分離し、シンプルな部品を組み合わせてロジックを組み立てることによって得られる *モジュール性の改善* こそが主たる利点のひとつであると指摘しました。
 
 今回の FizzBuzz を見ると、この主張の正しさは認めざるをえません。関数型のコードでは各行がモジュールを構成している一方、命令型の解答はモノリシックな構成になっています。
 
-## 参考文献
-
-* [Why FP matters](http://www.cs.kent.ac.uk/people/staff/dat/miranda/whyfp90.pdf)
-* [Simplicity](https://www.youtube.com/watch?v=rI8tNMsozo0) (Rich Hickey, RailsConf Keynote 2012)
-* RxJava: [An interesting solution by Tim Yates](https://gist.github.com/timyates/0d6b47e429023630a750)
-* Java8: The Scalarian has correctly pointed out that with Java 8 there is [a much less imperative solution](https://github.com/thescalarian/FregeGoodness/blob/patch-1/src/docs/asciidoc/fizzbuzz.adoc)
-* [FizzBuzz Solutions](http://c2.com/cgi/wiki?FizzBuzzTest): [Fizzbuzz Trek](https://vimeo.com/144335290) by Kevlin Henney
-* Carlo Pescio: A criticial review (Draft)[https://drive.google.com/file/d/0B59Tysg-nEQZOGhsU0U5QXo0Sjg/view?pref=2&pli=1]
+=== 参考文献
+[horizontal]
+Why FP matters:: http://www.cs.kent.ac.uk/people/staff/dat/miranda/whyfp90.pdf
+Simplicity:: Rich Hickey, RailsConf Keynote 2012 https://www.youtube.com/watch?v=rI8tNMsozo0
+RxJava:: An interesting solution by Tim Yates https://gist.github.com/timyates/0d6b47e429023630a750
+Java8:: The Scalarian has correctly pointed out that with Java 8 there is a much less imperative solution https://github.com/thescalarian/FregeGoodness/blob/patch-1/src/docs/asciidoc/fizzbuzz.adoc
+FizzBuzz Solutions:: http://c2.com/cgi/wiki?FizzBuzzTest[C2 Wiki], https://vimeo.com/144335290[FizzBuzzTrek] by Kevlin Henney, https://gist.github.com/olivergierke/714b46e78b1b575a099e9f9c6d0af5f3[Better Java Solutions] by
+Oliver Gierke and others
+Carlo Pescio:: A criticial review https://drive.google.com/file/d/0B59Tysg-nEQZOGhsU0U5QXo0Sjg/view?pref=2&pli=1[Draft]
