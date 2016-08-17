@@ -1,0 +1,137 @@
+# ドット記法の威力
+
+オブジェクト指向言語の機能を Haskell で使うとしたら、という質問に対して、サイモン・ペイトン・ジョーンズは好んで「ドット記法が持つ威力」を引き合いに出しています。Java や Groovy のような言語では、以下のような形式でメソッドを呼び出したいとき、正しいメソッドを見つけるのに便利な IDE のサポート機能が準備されています。
+
+```
+receiver.myMethod(arg1);
+```
+
+これは、IDE は `receiver` の型を知っていて使用可能なメソッドを検索できるため、それを表示してドットの直後に入力したいものをプログラマに選択させることができるからです。
+
+ほとんどの関数型プログラミング言語おいて、このような状況での便利さは劣ります。というもの、最初に入力するものの典型は関数名であり、IDE は選択肢を提示するために使用出来る文脈をほとんど持っていないからです。
+
+```
+myFunction receiver arg1
+```
+
+うまいことに Frege には、オブジェクト指向と関数型、両アプローチの利点を組み合わせることのできるドット記法が存在し、それを用いて強力な IDE のサポート機能が利用可能です。
+
+```
+receiver.myFunction arg1
+```
+
+Frege のドット記法の基本要素は、モジュールシステム、型宣言、そして型クラスです。それでは、これらの仕組みがどのように動作するのかを見てみましょう。
+
+## モジュールシステム
+
+Frege では、名前空間を表す記法として _モジュール_ を使用します。モジュールはスタティックなメソッドとフィールドのみを持つ Java のクラスであると考えることができます。
+
+モジュールは、データ型 (型コンストラクタおよび値コンストラクタ)、型クラスおよび関数をエクスポートすることが可能です。
+
+モジュールを使うためにはインポート文 (修飾付きインポートも可) が必要で、インポートした型と関数はプレフィックス付きで使用することができます。
+
+Caption: 単純なモジュールのインポートと名前空間の使い方
+
+```
+import fregefx.javafx.scene.control.TextArea
+-- later
+TextArea.getCaretPosition inputArea
+```
+
+これがドット記法の第一の使い方です。`getCaretPosition` 関数は `TextArea` モジュール由来のものであり、Frege は関数名の検索のため、あるいは曖昧さを排除するためにドットを使用します。
+
+この関数は引数をひとつ (`inputArea`) 取り、その型は `TextArea` です。Frege では、この引数の型が宣言されていたりあるいは推論可能であったりして、すでに判明していることもよくあります。このような場合、ドット記法は `inputArea.getCaretPosition` の形で書くことができます。以下に示したのは、[Frege FregeFX REPL](https://github.com/Dierk/frepl-gui/blob/master/client/src/main/frege/org/frege/Application.fr#L112) のソースコード中に現れる例です。
+
+Caption: オブジェクト指向とごく近い記法
+
+```
+insert :: TextArea -> String -> IO ()
+insert inputArea text = do
+    pos <- inputArea.getCaretPosition
+    inputArea.insertText pos text
+```
+
+この記法は読みやすく馴染みがあるというだけではなく、強力な IDE のサポート機能が活用することも可能になります。
+
+さらに続きます。
+
+## データ型
+
+以前の記事で、次のようなデータ型 `Position` をレコード構文を合わせて使用しました。
+
+Caption: position.ticker の使い方について
+
+```
+data Ticker = GOOG | MSFT | APPL | CANO | NOOB
+
+data Position = Position  { soMany :: Int, ticker :: Ticker }
+
+-- later:
+
+value position = calculate $ lookup position.ticker prices where
+    -- more here...
+```
+
+レコード構文では、`ticker` はフィールドのように見えます (し、そう呼ばれることもあります) が、実際には関数です。その銘柄の株価にアクセスする関数であり、Java でいう getter メソッドに相当します。
+
+この関数は、二通りの同値な方法で呼び出すことができます。
+
+Caption: 同値な記法
+
+```
+Position.ticker position  -- "getter"
+position.ticker
+```
+
+さらに、「フィールド」をセットしたり更新したりするための方法も追加で存在します。
+
+Caption: ドット記法を用いた、セットおよび更新の同値な記法
+
+```
+Position.{soMany = } position 1  -- "setter"
+position.{soMany = } 1
+
+Position.{soMany <-} position (+1) -- update
+position.{soMany <-} (+1)
+```
+
+繰り返しになりますが、この記法は非常にオブジェクト指向に似ており、IDE との相性も良好です。
+
+言うまでもなく、Frege の常として、この _setter_ と _update_ は値を直接書き換えるのではなく、新しいイミュータブルな値を返します。
+
+## 型クラス
+
+次に話題を型クラスに移して続けます。以下では、何らかの意味で複製することができる型クラスを導入し、String をその型クラスのインスタンスにしています。
+
+Caption: 型クラスのインスタンスに対するドット記法
+
+```
+class Doubleable a where
+    twice :: a -> a
+
+instance Doubleable String where
+    twice s = s ++ s
+
+main args = do
+    println $ Doubleable.twice "a"
+    println   "a".twice
+```
+
+Caption: 閉じた型を拡張する
+
+オブジェクト指向のプログラマなら、なぜ _String_ のような型 (Java の final クラスである String) ですら _twice_ のような新しい関数を定義して、100 % 型安全な形で拡張できるのかについて調べてみると面白いでしょう。
+
+## まとめ
+
+Frege では IDE 向けに、ドット記法の様々な用法に対応してコード補完を行う追加機能を提供しています。このような機能は依然、大部分の IDE で対応待ちの状態です。ぜひ [投票](https://youtrack.jetbrains.com/issue/IDEABKL-7108) してください！
+
+オブジェクト指向プログラマにとってドット記法は非常に読みやすく感じるため、純粋関数型の世界に対する敷居を低く感じさせるという効果もあります。
+
+もし「ドット記法の威力」こそが Haskell がオブジェクト指向言語から輸入すべき機能の最たるものであるとしたら、純粋関数型の恩恵とオブジェクト記法の便利さとを同時に得られるという意味で、Frege は優れた解決策を見出したことになります。
+
+## 参考文献
+
+* Vote IDE support: [https://youtrack.jetbrains.com/issue/IDEABKL-7108](https://youtrack.jetbrains.com/issue/IDEABKL-7108)
+* Simon Peyton Jones: [https://www.youtube.com/watch?v=dI6kWwZTOKM](https://www.youtube.com/watch?v=dI6kWwZTOKM), ff to Conclusions at the end
+* Marimuthu on record syntax: [http://mmhelloworld.github.io/blog/2014/03/15/frege-record-accessors-and-mutators/](http://mmhelloworld.github.io/blog/2014/03/15/frege-record-accessors-and-mutators/)
+* Frege Language Reference: [http://www.frege-lang.org/doc/Language.pdf](http://www.frege-lang.org/doc/Language.pdf), section 3.2 "Primary Expression"
