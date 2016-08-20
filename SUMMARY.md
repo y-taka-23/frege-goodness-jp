@@ -9,7 +9,7 @@
 * [Maybe 付きのパス](docs/the-maybe-path.adoc)
 * [FizzBuzz 問題](docs/fizz-buzz.adoc)
     + [FizzBuzz 問題ふたたび](docs/fizzBuzz-revisited.adoc)
-* [ドット記法の威力](docs/the-power-of-the-dot.md)
+* [ドット記法の威力](docs/the-power-of-the-dot.adoc)
     + [アンダースコア・ドット記法](docs/the-underscore-dot-notation.md)
 * [リストに見るストリームとイテレータ](docs/lists-are-streams-and-iterators.md)
 * [数と遊ぼう](docs/fun-with-numbers.md)
