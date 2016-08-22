@@ -60,13 +60,13 @@ _.getCaretPosition
 
 それでは、便利な使い方をもう少し見てみましょう。
 
-## その他の使用法
+=== その他の使用法
 
 現在のスレッド名を取得する際、次のような様々な記法を使うことができます。
 
-Caption: 色々な方法で現在のスレッド名を取得する
-
-```
+.現在のスレッド名を取得する方法いろいろ
+[source, haskell]
+----
 -- do notation
 do
     thread <- Thread.current()
@@ -81,26 +81,26 @@ Thread.current() >>= Thread.getName
 
 -- underscore-dot notation
 Thread.current() >>= _.getName
-```
+----
 
 アンダースコア・ドット記法は、高階関数に対して、普通ならセクションや部分適用を使う代わりに使用する場合にも便利です。古典的な `map` 関数を使って、スレッドのリストからスレッド名にマッピングする例を見てみましょう。
 
-Caption: 複数のスレッドをその名前にマップする
-
-```
+.複数のスレッドをその名前にマップする
+[source, haskell]
+----
 map _.getName threads
-```
+----
 
 レコード記法についても、特に更新したり値を操作したりする際に、アンダースコア・ドット記法が役に立ちます。フィールド `name` を持つレコード `Person` があったと仮定しましょう。ただしレコードに対する変更とは、単にレコードを渡して更新されたものを返す処理を指します。
 
-Caption: アンダースコア・ドット記法によるレコードの更新
-
-```
+.アンダースコア・ドット記法によるレコードの更新
+[source, haskell]
+----
 data Person = Person {name :: String}
 setName :: String -> State Person ()
 setName newName = do
     State.modify _.{name = newName}
-```
+----
 
 ## 最後の考察として
 
