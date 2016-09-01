@@ -12,7 +12,7 @@
 * [ドット記法の威力](docs/the-power-of-the-dot.adoc)
     + [アンダースコア・ドット記法](docs/the-underscore-dot-notation.adoc)
 * [リストに見るストリームとイテレータ](docs/lists-are-streams-and-iterators.adoc)
-* [数と遊ぼう](docs/fun-with-numbers.md)
+* [数と遊ぼう](docs/fun-with-numbers.adoc)
 * [型クラスを利用したミニ DSL](docs/a-mini-dsl-with-type-classes.md)
 * [型安全な DSL を目指して](docs/enhancing-the-dsl-for-type-safety.md)
 * [火星探査機コマンドと状態付き計算](docs/stateful-commands-for-the-mars-rover.md)
