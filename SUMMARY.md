@@ -17,7 +17,7 @@
 * [型安全な DSL を目指して](docs/enhancing-the-dsl-for-type-safety.adoc)
 * [火星探査機コマンドと状態付き計算](docs/stateful-commands-for-the-mars-rover.adoc)
 * [インクリメンタル開発](docs/incremental-development.adoc)
-    + [第一回 : 無限に怠惰に後回し](docs/be-infinitely-lazy-and-defer-all-work.md)
+    + [第一回 : 無限に怠惰に後回し](docs/be-infinitely-lazy-and-defer-all-work.adoc)
     + [第二回 : 関数と合成による設計](docs/designing-with-functions-and-composition.md)
     + [第三回 : 高階関数と進化するデータ型](docs/higher-order-functions-and-data-type-evolution.md)
     + [第四回 : いざ安全に並列実行](docs/going-safely-parallel.md)
