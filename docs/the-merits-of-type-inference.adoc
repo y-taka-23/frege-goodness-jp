@@ -119,33 +119,34 @@ Haskell や Frege のような型推論を持つ言語は、例えば Java な�
 しかしながらこの件は継続的改善の最中であり、Frege プロジェクトチームは改善の余地があるエラーメッセージ例の報告を歓迎しています。
 ****
 
-## 究極の型推論
+=== 究極の型推論
 
 型推論が行われる例として、QuickCheck に勝るものはありません。
 
 明示的な型シグニチャなしで `twice` を実装したとしましょう。次に、2 回適用するための関数が必要ですが、ここではプレフィックスを付けられる型なら何でもプレフィックスを付けるような関数を使ってみましょう。つまりこんな感じ。
 
-Caption: プレフィックス関数
-
-```
+.プレフィックス関数
+[source, haskell]
+----
 prefix front x = front ++ x
-```
+----
 
 プレフィックスを付ける対象が _何であるか_ について、人間が考えるのではなく、ここで使用できるであろう最も一般的な型を Frege に判断させます。
 
-Caption: マニア向け
-
+.マニア向け
+****
 Frege は _prefix_ 関数に対してちょっとびっくりするような型 `ListSemigroup b ⇒ b a → b a → b a` を推論しますが、さしあたりここでは無視します。文字列や任意のリストのような、`++` で連接できるようなものを表す代数的な型であるとだけ述べておきましょう。
+****
 
 それではここで、ランダムな入力に対して常に満たされるべき性質を定義しましょう。すなわち `twice` は任意の関数を _2 回_ 適用すること (当たり前ですが) を仮定します。Frege にとっては厄介なことですが、テストされるべき式は関数を参照するのではなくラムダ式の形で与えます。このとき Frege は、部分式の型を推論しなければならないことになります。
 
-Caption: _prefix_ を使ったとき _twice_ が満たすべき性質
-
-```
+._prefix_ を使ったとき _twice_ が満たすべき性質
+[source, haskell]
+----
 import Test.QuickCheck
 applied_twice = property $ \x -> twice (prefix "<") x == "<<" ++ x
 quickCheck applied_twice
-```
+----
 
 そして QuickCheck はしっかりと `OK, passed 100 tests.` を返します。
 
@@ -155,14 +156,15 @@ Frege はこの結論プログラマからの助けを全く借りずにこの�
 
 いずれにせよ、コードは構造的に正しいことが保証されました。しかもコンパイル時に！
 
-Caption: 練習問題
-
+.練習問題
+****
 納得がいかない場合は、2 回呼ばれると問題が起こりそうな関数を _twice_ に与えて確認してみましょう。
+****
 
 最後に考えてみてください。Frege 以外の JVM 言語でこんなことができますか？
 
-## 参考文献
-
-* Type Inference: [Hindley-Milner Type System](https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system)
-* Semigroup: [Wikipedia](https://en.wikipedia.org/wiki/Semigroup), [Haskell Typeclassopedia](https://wiki.haskell.org/Typeclassopedia#Semigroup), [Semigoupoid (API)](http://www.frege-lang.org/doc/frege/control/Semigroupoid.html), [ListSemigroup (API)](http://www.frege-lang.org/doc/frege/prelude/PreludeList.html#ListSemigroup)
-* QuickCheck: [Frege Wiki Page](https://github.com/Frege/frege/wiki/Getting-Started#quickcheck)
+=== 参考文献
+[horizontal]
+Type Inference:: https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system[Hindley-Milner Type System]
+Semigroup:: https://en.wikipedia.org/wiki/Semigroup[Wikipedia], https://wiki.haskell.org/Typeclassopedia#Semigroup[Haskell Typeclassopedia], http://www.frege-lang.org/doc/frege/control/Semigroupoid.html[Semigoupoid (API)], http://www.frege-lang.org/doc/frege/prelude/PreludeList.html#ListSemigroup[ListSemigroup (API)]
+QuickCheck:: https://github.com/Frege/frege/wiki/Getting-Started#quickcheck[Frege Wiki Page]
