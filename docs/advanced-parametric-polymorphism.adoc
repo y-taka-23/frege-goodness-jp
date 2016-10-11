@@ -196,28 +196,30 @@ fzip f xs ys = zip (f xs) (f ys)
 
 ポイントとなるのは、関数引数が全称量化された多相型になっている点です。何を入れるべきかよくわからないときは、REPL を使用すればこのような関数に対して型が確認できます。
 
-Caption: REPL の助けを借りる
-
-```
+.REPL の助けを借りる
+[source, haskell]
+----
 :type reverse
 [α] -> [α]
-```
+----
 
 量化された型を指定するためには、キーワード `forall` (`∀` と書くことも可能) をつけて型の中に現れる型変数をすべて並べて書きます。もし型変数名が気に入らない場合は、単純に名前を付け替えることも可能です。例えば、コンパイラは以下に挙げた型を区別することができません。
 
-Caption: 様々な型宣言
-
-```
+.様々な型宣言
+[source, haskell]
+----
 forall a.[a] → [a]
 forall b.[b] → [b]
 ∀ quetzalcoatl.[quetzalcoatl] → [quetzalcoatl]
-```
+----
 
 一方、型宣言をすべて与えるのではなく、_f_ の型宣言のみを行内に書くことで `fzip` を定義することもできます。
 
-```
+._f_ のみに注釈をつける
+[source, haskell]
+----
 fzip (f ∷ ∀a.[a] → [a]) xs ys = zip (f xs) (f ys)
-```
+----
 
 しかしこれはかなり読みづらいように思います。
 
@@ -225,22 +227,23 @@ fzip (f ∷ ∀a.[a] → [a]) xs ys = zip (f xs) (f ys)
 
 いくつか例を挙げます。`f` の型をコメントとして付けておきます。
 
-Caption: 関数 f の実例
-
-```
+.関数 _f_ の実例
+[source, haskell]
+----
 fzip id         [1..10] ['a'..'z']   -- ∀a. a  →  a
 fzip (drop 3)   [1..10] ['a'..'z']   -- ∀a.[a] → [a]
 fzip reverse    [1..10] ['a'..'z']   -- ∀a.[a] → [a]
 fzip (map id)   [1..10] ['a'..'z']   -- ∀a.[a] → [a]
 fzip tail       [1..10] ['a'..'z']   -- ∀a.[a] → [a]
 fzip (const []) [1..10] ['a'..'z']   -- ∀a b.a → [b]
-```
+----
 
 以上が高階型の概要です。高階型の欠点や改良方法については、また別の記事で再度、触れることになるでしょう。
 
 今回の内容に心惹かれた人のために、次回記事までの宿題を出しておきます。
 
-* `f` の型を、もっと一般的な `∀a b.[a] → [b]` としないのは何故か (最後に挙げた例がヒントになっています)
-* (真の Java の達人向け) キャストや `@SuppressWarnings` を使用せずに、Java で `fzip` を実装して、警告なしでコンパイルできるか (実は可能なのです)
+* `f` の型を、もっと一般的な `∀a b.[a] → [b]` としないのは何故か？ (最後に挙げた例がヒントになっています)
+* (真の Java の達人向け) キャストや `@SuppressWarnings` を使用せずに、Java で `fzip` を実装して、警告なしでコンパイルできるか？ (実は可能なのです)
 
-* Java solution: [Marimuthu’s proposal](https://gist.github.com/mmhelloworld/eac189d52cd1e2a91ad5)
+[horizontal]
+Java solution:: https://gist.github.com/mmhelloworld/eac189d52cd1e2a91ad5[Marimuthu’s proposal]

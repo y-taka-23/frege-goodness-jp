@@ -22,4 +22,4 @@
     + [第三回 : 高階関数と進化するデータ型](docs/higher-order-functions-and-data-type-evolution.adoc)
     + [第四回 : いざ安全に並列実行](docs/going-safely-parallel.adoc)
 * [型推論のメリット](docs/the-merits-of-type-inference.adoc)
-* [パラメータ多相続論](docs/advanced-parametric-polymorphism.md)
+* [パラメータ多相続論](docs/advanced-parametric-polymorphism.adoc)
