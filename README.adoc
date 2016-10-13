@@ -8,7 +8,7 @@
 
 さらに、Web、スマートフォン、タブレット、iBooks、Kindle など、各種デバイスもサポートされています。
 
-なお、https://www.gitbook.com/book/y-taka-23/frege-goodness-jp/[日本語版] の翻訳も Yuto Takahashi (@y-taka-23) によって進行中です。
+なお、https://www.gitbook.com/book/y-taka-23/frege-goodness-jp[日本語版] の翻訳も Yuto Takahashi (@y-taka-23) によって進行中です。
 
 === 準中級者向け
 
