@@ -1,25 +1,25 @@
-# 目次
+= 目次
 
-* [タネも仕掛けも](docs/a-magical-trick.adoc)
-* [QuickCheck で性質テスト](docs/a-simple-quickcheck-property.adoc)
-* [静かなる記号たち](docs/silent-notation.adoc)
-* [素晴らしきかな不変性](docs/efficient-immutables.adoc)
-* [お手軽入出力](docs/easy-io.adoc)
-* [リストとパス](docs/list-and-path.adoc)
-* [Maybe 付きのパス](docs/the-maybe-path.adoc)
-* [FizzBuzz 問題](docs/fizz-buzz.adoc)
-    + [FizzBuzz 問題ふたたび](docs/fizzBuzz-revisited.adoc)
-* [ドット記法の威力](docs/the-power-of-the-dot.adoc)
-    + [アンダースコア・ドット記法](docs/the-underscore-dot-notation.adoc)
-* [リストに見るストリームとイテレータ](docs/lists-are-streams-and-iterators.adoc)
-* [数と遊ぼう](docs/fun-with-numbers.adoc)
-* [型クラスを利用したミニ DSL](docs/a-mini-dsl-with-type-classes.adoc)
-* [型安全な DSL を目指して](docs/enhancing-the-dsl-for-type-safety.adoc)
-* [火星探査機コマンドと状態付き計算](docs/stateful-commands-for-the-mars-rover.adoc)
-* [インクリメンタル開発](docs/incremental-development.adoc)
-    + [第一回 : 無限に怠惰に後回し](docs/be-infinitely-lazy-and-defer-all-work.adoc)
-    + [第二回 : 関数と合成による設計](docs/designing-with-functions-and-composition.adoc)
-    + [第三回 : 高階関数と進化するデータ型](docs/higher-order-functions-and-data-type-evolution.adoc)
-    + [第四回 : いざ安全に並列実行](docs/going-safely-parallel.adoc)
-* [型推論のメリット](docs/the-merits-of-type-inference.adoc)
-* [パラメータ多相続論](docs/advanced-parametric-polymorphism.adoc)
+. link:docs/a-magical-trick.adoc[タネも仕掛けも]
+. link:docs/a-simple-quickcheck-property.adoc[QuickCheck で性質テスト]
+. link:docs/silent-notation.adoc[静かなる記号たち]
+. link:docs/efficient-immutables.adoc[素晴らしきかな不変性]
+. link:docs/easy-io.adoc[お手軽入出力]
+. link:docs/list-and-path.adoc[リストとパス]
+. link:docs/the-maybe-path.adoc[Maybe 付きのパス]
+. link:docs/fizz-buzz.adoc[FizzBuzz 問題]
+.. link:docs/fizzBuzz-revisited.adoc[FizzBuzz 問題ふたたび]
+. link:docs/the-power-of-the-dot.adoc[ドット記法の威力]
+.. link:docs/the-underscore-dot-notation.adoc[アンダースコア・ドット記法]
+. link:docs/lists-are-streams-and-iterators.adoc[リストに見るストリームとイテレータ]
+. link:docs/fun-with-numbers.adoc[数と遊ぼう]
+. link:docs/a-mini-dsl-with-type-classes.adoc[型クラスを利用したミニ DSL]
+. link:docs/enhancing-the-dsl-for-type-safety.adoc[型安全な DSL を目指して]
+. link:docs/stateful-commands-for-the-mars-rover.adoc[火星探査機コマンドと状態付き計算]
+. link:docs/incremental-development.adoc[インクリメンタル開発]
+.. link:docs/be-infinitely-lazy-and-defer-all-work.adoc[第一回 : 無限に怠惰に後回し]
+.. link:docs/designing-with-functions-and-composition.adoc[第二回 : 関数と合成による設計]
+.. link:docs/higher-order-functions-and-data-type-evolution.adoc[第三回 : 高階関数と進化するデータ型]
+.. link:docs/going-safely-parallel.adoc[第四回 : いざ安全に並列実行]
+. link:docs/the-merits-of-type-inference.adoc)[型推論のメリット]
+. link:docs/advanced-parametric-polymorphism.adoc[パラメータ多相続論]
