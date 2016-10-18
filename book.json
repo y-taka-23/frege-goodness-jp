@@ -5,8 +5,9 @@
       "url": "https://github.com/y-taka-23/frege-goodness-jp"
     }
   },
-  "pdf": {
-    "fontFamily": "IPAGothic"
+  "styles": {
+    "website": "webstyle.css",
+    "pdf": "webstyle.css"
   }
 }
 

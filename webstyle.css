@@ -1,0 +1,29 @@
+
+.title {
+    font-family:"Noto Serif","DejaVu Serif",serif;
+    font-style:italic;
+    color: #6b0001;
+}
+
+h1, h2, h3 {
+    font-weight: 100;
+    color: #6b0001;
+}
+
+li > p {
+    margin-bottom: 0px!important;
+    -webkit-margin-after: 0px;
+}
+
+.sidebarblock {
+    background-color: papayawhip;
+    padding-left:   4%;
+    padding-top:    4%;
+    padding-right:  4%;
+    padding-bottom: 2%;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal pre .hljs-title,
+.book .book-body .page-wrapper .page-inner section.normal code .hljs-title {
+  color: black;
+}
