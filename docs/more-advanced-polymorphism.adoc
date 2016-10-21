@@ -1,0 +1,35 @@
+== 多相性特論
+
+link:advanced-parametric-polymorphism.adoc[ひとつ前の記事] では、最終的にランク 2 の型を用いて以下のような `fzip` を得ました。
+
+[source, haskell]
+----
+fzip :: (∀a.[a] → [a]) → [b] → [c] → [(b,c)]
+fzip f xs ys = zip (f xs) (f ys)
+----
+
+=== 高階型が一般的すぎる場合
+
+残念なことに、先に得た答えは、ありうるユースケースすべてをカバーしているわけではありません。例えば、以下の式は未だに書きなおすことができないままです。
+
+[source, haskell]
+----
+let inc = map (1+) in zip (inc xs) (inc ys)
+----
+
+次のように書こうとすると、
+
+[source, haskell]
+----
+fzip (map (1+)) [8..13] [1,2,3]
+----
+
+以下のようなエラーが帰ってきてしまいます。
+
+[source]
+----
+inferred type is more constrained than expected type
+    inferred:  Num a => [a] -> [a]
+    expected:  [a] -> [a]
+----
+
