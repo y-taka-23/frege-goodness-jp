@@ -24,7 +24,7 @@ let inc = map (1+) in zip (inc xs) (inc ys)
 fzip (map (1+)) [8..13] [1,2,3]
 ----
 
-以下のようなエラーが帰ってきてしまいます。
+以下のようなエラーが返ってきてしまいます。
 
 [source]
 ----
@@ -33,3 +33,4 @@ inferred type is more constrained than expected type
     expected:  [a] -> [a]
 ----
 
+つまり、`map (1+)` は型シグネチャが要求しているよりも一般性が不足しているのです。これが動作するのは数値に対してだけですが、 *任意の* リストを引数とする関数を渡せると宣言してしまっています。
