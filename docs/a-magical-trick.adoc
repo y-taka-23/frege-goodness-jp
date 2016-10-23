@@ -104,5 +104,7 @@ NOTE: ここで登場した定理は、他の JVM 言語でも同じように成
 [horizontal]
 Hoogle [a]→[a]:: https://www.haskell.org/hoogle/?hoogle=%5Ba%5D+-%3E+%5Ba%5D
 Phil Wadler:: Tech Mesh 2012 - Faith, Evolution, and Programming Languages: from Haskell to Java https://www.youtube.com/watch?v=NZeDRs6snm0
-Bartosz Milewski:: http://bartoszmilewski.com/2015/04/07/natural-transformations/[Natural Transformations], http://bartoszmilewski.com/2015/04/07/natural-transformations/[The Yoneda Lemma]
+Bartosz Milewski::
+http://bartoszmilewski.com/2015/04/07/natural-transformations/[Natural
+Transformations], https://www.youtube.com/watch?v=2LJC-XD5Ffo[video], http://bartoszmilewski.com/2015/04/07/natural-transformations/[The Yoneda Lemma]
 Functor:: http://en.wikipedia.org/wiki/Functor
