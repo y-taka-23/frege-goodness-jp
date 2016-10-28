@@ -67,3 +67,11 @@ ezip :: (Enum c,Enum b) => (∀a.Enum a => [a] -> [a]) -> [b] -> [c] -> [(b,c)]
 ----
 
 のようにする必要があります。
+
+しかし、仮に型クラスを抽象化できたとしても、一般化した新しいバージョンの `zip` を書くにはやはり次のようにしなければならないでしょう。
+
+[source,haskell]
+----
+zip (map show [8..13]) (map show ['a', 'b', 'c'])
+zip (filter (<maxBound) xs) (filter (<maxBound) ys)
+----
