@@ -75,3 +75,6 @@ ezip :: (Enum c,Enum b) => (∀a.Enum a => [a] -> [a]) -> [b] -> [c] -> [(b,c)]
 zip (map show [8..13]) (map show ['a', 'b', 'c'])
 zip (filter (<maxBound) xs) (filter (<maxBound) ys)
 ----
+
+前者は `Show` の制約の元で常に`[String]` を返り値としますが、
+これはここまでに述べた関数に対しては一般性が不十分です。後者では制約はひとつではなく、`[Bounded]` と `[Ord]` のふたつの制約を必要としています。
