@@ -18,7 +18,7 @@ https://github.com/Frege/frege[Frege] (フレーゲ) は、Haskell と極めて�
 
 さらに、Web、スマートフォン、タブレット、iBooks、Kindle など、各種デバイスもサポートされています。
 
-なお、 https://www.gitbook.com/book/y-taka-23/frege-goodness-jp[日本語版] の翻訳も Yuto Takahashi (@y-taka-23) によって進行中です。
+なお、 https://www.gitbook.com/book/y-taka-23/frege-goodness-jp[日本語版] の翻訳 (訳註 : つまりこの文書のこと) も Yuto Takahashi (@y-taka-23) によって進行中です。
 
 === 準中級者向け
 
@@ -32,7 +32,7 @@ https://github.com/Frege/frege[Frege] (フレーゲ) は、Haskell と極めて�
 
 本書の原稿は GitHub で管理されています。フィードバック、質問、改善提案などがありましたら https://github.com/Dierk/FregeGoodness/issues[Issue] に登録してください。
 
-最近、GitBook はパラグラフと紐づいたドキュメント内コメントをサポートするようになりました。パラグラフにカーソルを当てると「+」ボタンが現れるので、クリックすればコメントを書き始められます。
+最近、GitBook はパラグラフと紐づいたドキュメント内コメントをサポートするようになりました。パラグラフにカーソルを当てると「+」ボタンが現れるので、クリックすればコメントを書き始められます (訳註 : 原著のみ。翻訳版では無効に設定されています)。
 
 本書に協力して頂ける方からの https://github.com/Dierk/FregeGoodness/pulls[プルリクエスト] も歓迎しています。
 
