@@ -21,5 +21,5 @@
 .. link:docs/designing-with-functions-and-composition.adoc[第二回 : 関数と合成による設計]
 .. link:docs/higher-order-functions-and-data-type-evolution.adoc[第三回 : 高階関数と進化するデータ型]
 .. link:docs/going-safely-parallel.adoc[第四回 : いざ安全に並列実行]
-. link:docs/the-merits-of-type-inference.adoc)[型推論のメリット]
+. link:docs/the-merits-of-type-inference.adoc[型推論のメリット]
 . link:docs/advanced-parametric-polymorphism.adoc[パラメータ多相続論]
