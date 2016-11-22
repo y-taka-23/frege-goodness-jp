@@ -2,7 +2,7 @@
 
 Frege には性質テスト (propery-based test) を可能にする機能が備わっています。この機能で何ができるのかを少し見ていきましょう。
 
-「<<a-magical-trick.adoc,タネも仕掛けも>>」では、以下のような関数 _f_ および _g_ を使用しました。
+「<<a-magical-trick.adoc#a-magical-trick,タネも仕掛けも>>」では、以下のような関数 _f_ および _g_ を使用しました。
 
 [source, haskell]
 ----
