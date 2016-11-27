@@ -74,7 +74,7 @@ pattern = zipWith (++) fizzes buzzes
 
 それでは最終的な結果となる無限リストを得るために、さっきのパターンを数字の無限リストに重ね合わせます。
 
-.最終的な　FizzBuzz 問題の解
+.最終的な FizzBuzz 問題の解
 [source, haskell]
 ----
 fizzes   = cycle ["", "", "fizz"]
