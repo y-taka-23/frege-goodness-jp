@@ -146,7 +146,7 @@ starTicker bank =
 
 `Position.ticker` も _Maybe_ 型だったらもっとすっきりと書けたでしょう。しかし銘柄がないポジションは存在し得ないため、こちらのほうがリアリティがあります。また、関数に渡す引数をラムダ式のパラメータとして束縛する例としても勉強になります。
 
-型を確認するのは簡単です。「<<silent-notation.md,静かなる記号たち>>」ですでに見たように、
+型を確認するのは簡単です。「<<silent-notation.adoc#silent-notation,静かなる記号たち>>」ですでに見たように、
 
 [source, haskell]
 ----
