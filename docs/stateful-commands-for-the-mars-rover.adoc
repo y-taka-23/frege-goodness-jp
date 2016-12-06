@@ -1,6 +1,6 @@
 == 火星探査機コマンドと状態付き計算
 
-「<<a-mini-dsl-with-type-classes.adoc,型クラスを利用したミニ DSL>>」で扱った内容をさらに発展させて、今回は DSL にふたつの新機能を導入しましょう。
+「<<a-mini-dsl-with-type-classes.adoc#a-mini-dsl-with-type-classes,型クラスを利用したミニ DSL>>」で扱った内容をさらに発展させて、今回は DSL にふたつの新機能を導入しましょう。
 
 * `move rover 20 meters forward` のような、英文として読めるコマンド式
 * 同じ探査機に対するコマンドの逐次実行
