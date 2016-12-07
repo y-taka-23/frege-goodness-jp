@@ -89,7 +89,7 @@ star3 = once $ starTicker noPortfolioBank == Nothing
 
 ここは一度戻って、今回何をしているのかについて再考しましょう。
 
-「<<list-and-path.adoc,リストとパス>>」でやったのと同じように、登場する関数とその型を確認してみます。
+「<<list-and-path.adoc#list-and-path,リストとパス>>」でやったのと同じように、登場する関数とその型を確認してみます。
 
 .関数とその型の組み合わせ
 [options="header", cols="^1,2*<5"]
