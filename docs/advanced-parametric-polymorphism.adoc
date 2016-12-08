@@ -37,7 +37,7 @@ static List<Integer> sqrs = <Integer, Integer>map(
 	Arrays.asList(1,2,3,4,5,6,7,8,9,10));
 ----
 
-<<the-merits-of-type-inference.adoc,Frege の型推論>> は `map` の型を完全に自動で推論できますが、通常の場合、明示的に型宣言を付けます (Eclipse プラグインのようなツールを使用すればワンクリックで可能です)。
+<<the-merits-of-type-inference.adoc#the-merits-of-type-inference,Frege の型推論>> は `map` の型を完全に自動で推論できますが、通常の場合、明示的に型宣言を付けます (Eclipse プラグインのようなツールを使用すればワンクリックで可能です)。
 
 重要なのは、Frege では、型変数の導入は _暗黙的_ に行うことができ、型変数のインスタンス化は常に目に見えない形で行われるということです。しかしながら、推論の結果 `map` は `sqrs` の右辺に現れる型である `(Int→Int) → [Int] → [Int]` でインスタンス化されます。ただし目に見えないだけあって、多くの Haskell や Frege のプログラマは、インスタンス化の存在すらまったく関知しません。
 
