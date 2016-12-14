@@ -34,7 +34,7 @@ move position distance unit direction =
     position.{x <- (+ distance * unit * direction) }  -- (1)
 ----
 
-おなじみですが、`(1)` において 「<<the-power-of-the-dot.adoc,ドット記法の威力>>」で登場した形式を用いて x 座標を変更しています。
+おなじみですが、`(1)` において 「<<the-power-of-the-dot.adoc#the-power-of-the-dot,ドット記法の威力>>」で登場した形式を用いて x 座標を変更しています。
 
 .宿題その 1
 ****
