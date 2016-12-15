@@ -123,7 +123,7 @@ Maybe Portfolio -> (Portfolio -> Maybe Position) -> Maybe Position
 Maybe a → (a → Maybe b) → Maybe b
 ----
 
-嬉しいことに、すでに _bind_ 関数が使える形になっていて、「<<easy-io.adoc,お手軽入出力>>」や「<<list-and-path.adoc,リストとパス>>」と同じように `>>=` で記述することができます。
+嬉しいことに、すでに _bind_ 関数が使える形になっていて、「<<easy-io.adoc#easy-io,お手軽入出力>>」や「<<list-and-path.adoc,リストとパス>>」と同じように `>>=` で記述することができます。
 
 まず <1> と <2> を組み合わせると `bank.star >>= Client.star`
 
