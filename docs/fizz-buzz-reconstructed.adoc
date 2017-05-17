@@ -39,3 +39,9 @@ fizzbuzz = map transform [1..100]
 さて、ここでまた同じ疑問が生じます。`transform` は何から何への関数なのか？
 
 もともとのゲームのルールに鑑みれば、この関数は整数 1 を文字列の "1" に、3 を "fizz" に、5 を "buzz" に、そして 15 を "fizzbuzz" に、といった変換を行います。
+
+.変換の型
+[source, haskell]
+----
+transform :: Int -> String
+----
