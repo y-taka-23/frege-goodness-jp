@@ -45,3 +45,8 @@ fizzbuzz = map transform [1..100]
 ----
 transform :: Int -> String
 ----
+
+これで、`transform` を実装する上で考えなければならない問題は、残り 2 つです。
+
+* ゲームのルール
+* `toString` のロジック
