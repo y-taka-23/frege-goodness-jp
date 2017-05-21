@@ -70,3 +70,29 @@ transform :: Int -> String
 ----
 type Rule = Int -> [String] -> [String]
 ----
+
+fizz ルールをモデリングする第一歩として、以下のような方法が思いつくかもしれません。
+
+.最初に思いつく fizz ルール
+[source, haskell]
+----
+fizzRule n old = if n `rem` 3 > 0
+                 then old
+                 else old ++ ["fizz"]
+----
+
+確かにその通りなのですが、しかし同じことを "buzz" に対しても繰り返す必要があります。そこで割る数 (3 か 5) と結果となる単語 ("fizz" か "buzz") をパラメータにすることで、あらかじめ重複を除いておきます。
+
+.パラメータ化された FizzBuzz ルール
+----
+divBy:: Int -> String -> Rule
+divBy divisor word n old = if n `rem` divisor > 0
+                           then old
+                           else old ++ [word]
+
+fizzRule:: Rule
+fizzRule = divBy 3 "fizz"
+
+buzzRule :: Rule
+buzzRule = divBy 5 "buzz"
+----
