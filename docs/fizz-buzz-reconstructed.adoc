@@ -96,3 +96,8 @@ fizzRule = divBy 3 "fizz"
 buzzRule :: Rule
 buzzRule = divBy 5 "buzz"
 ----
+
+.消えたパラメータ？
+****
+上のコードでは、引数のパラメータである `n` と `old` が `fizzRole` と `buzzRule` では消えてしまっているかのように見えます。ここではむしろコードをいい感じにするためにあえて省略 (link::silent-notation.adoc[ポイントフリー]) しました。
+****
