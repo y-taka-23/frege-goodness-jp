@@ -115,3 +115,7 @@ numberRule :: Rule
 numberRule n []     = [show n]
 numberRule _ result = result
 ----
+
+=== 合成を可能にする
+
+上で挙げたルールは独立にはうまく動きますが、しかし FizzBuzz ではルールを組み合わせる必要があります。ここが関数型のアプローチが輝く部分です。ルールは関数であり、そして関数の合成 (link:silent-notation.adoc[関数合成の記法]) は極めてシンプルです。
