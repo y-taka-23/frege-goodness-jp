@@ -119,3 +119,12 @@ numberRule _ result = result
 === 合成を可能にする
 
 上で挙げたルールは独立にはうまく動きますが、しかし FizzBuzz ではルールを組み合わせる必要があります。ここが関数型のアプローチが輝く部分です。ルールは関数であり、そして関数の合成 (link:silent-notation.adoc[関数合成の記法]) は極めてシンプルです。
+
+`fizzRule` に対する関数呼び出しの結果は `buzzRule` の引数として渡すことができ、さらにその結果も `numberRule` に引き渡すことができます。`numberRule n (buzzRule n (fizzRule n []))` のような入れ子になった呼び出しでも機能としては問題ありませんが、関数合成演算子 `(.)` を使ったほうが見た目が綺麗です。
+
+.関数で表されたルールを組み合わせる
+[source, haskell]
+----
+rules :: Rule
+rules n = numberRule n . buzzRule n . fizzRule n
+----
