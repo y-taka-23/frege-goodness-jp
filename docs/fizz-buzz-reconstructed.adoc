@@ -128,3 +128,9 @@ numberRule _ result = result
 rules :: Rule
 rules n = numberRule n . buzzRule n . fizzRule n
 ----
+
+.この方法のいいところ
+[NOTE]
+===============================
+ふたつのルールを組み合わせた結果として何が得られるでしょう？そう、結果もまたルールになるのです！
+===============================
