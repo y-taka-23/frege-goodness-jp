@@ -156,3 +156,5 @@ rules n = numberRule n . buzzRule n . fizzRule n
 toString :: Rule -> Int -> String
 toString rule n = joined "" (rule n [])
 ----
+
+ここで見た `transform` は (TODO: toString の間違いか？) は任意のルールに対して有効です。ルールを合成したものすなわち `rules` は自分自身もルールになるため、`transform` を適用することができます。
