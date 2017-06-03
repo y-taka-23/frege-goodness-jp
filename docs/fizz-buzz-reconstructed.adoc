@@ -170,3 +170,30 @@ toString rule n = joined "" (rule n [])
 transform :: Int -> String
 transform n = toString rules n
 ----
+
+最終的な解は次のようになります。ここでは型宣言は省略していますが、
+そもそも型宣言は付加的な情報であり、なしでも完全な型安全性に保っていることに注意しましょう。
+
+.完全な解答
+[source, haskell]
+----
+type Rule = Int -> [String] -> [String]
+
+divBy divisor word n old = if n `rem` divisor > 0
+                           then old
+                           else old ++ [word]
+
+fizzRule = divBy 3 "fizz"
+buzzRule = divBy 5 "buzz"
+
+numberRule n []     = [show n]
+numberRule _ result = result
+
+rules n = numberRule n . buzzRule n . fizzRule n
+
+toString rule n = joined "" (rule n [])
+
+transform n = toString rules n
+
+main _ = for (map transform [1..100]) println
+----
