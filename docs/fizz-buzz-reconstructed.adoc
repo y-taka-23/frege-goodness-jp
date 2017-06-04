@@ -160,7 +160,7 @@ toString rule n = joined "" (rule n [])
 
 ここで見た `transform` は (TODO: toString の間違いか？) は任意のルールに対して有効です。ルールを合成したものすなわち `rules` は自分自身もルールになるため、`transform` を適用することができます。
 
-===まとめ
+=== 全体をひとつに
 
 すべてのルールを合成したものと `toString` が使えるようになったため、ついに出発点だった `transform` を実装することができるようになりました。覚えていると思いますが、この関数の型は `Int -> String` です。
 
@@ -197,3 +197,20 @@ transform n = toString rules n
 
 main _ = for (map transform [1..100]) println
 ----
+
+=== まとめ
+
+今回得られた新しい解は次のような性質を持ちます。
+
+* これまでの解のいいところはそのまま
+* 巨大な数をパフォーマンス上問題なく扱える
+* より簡単に新しいルールを定義して既存のルールと組み合わせることが可能
+* ルールが関数として定義できるので、非常に広くいろいろな形で使用できる
+
+関数や、関数としての型がいかに素晴らしいものか (改めて) 確認できたことと思います。
+
+=== 参考文献
+[horizontal]
+Froogle::
+Lookup `joined` by type (TODO: リンク切れ):
+http://hoogle.haskell.org:8081/?hoogle=%5BString%5D%20-%3E%20String&scope=null
