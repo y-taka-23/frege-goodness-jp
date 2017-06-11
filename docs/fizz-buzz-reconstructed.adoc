@@ -229,4 +229,4 @@ main _ = for (map transform [1..100]) println
 [horizontal]
 Froogle::
 Lookup `joined` by type (TODO: リンク切れ):
-http://hoogle.haskell.org:8081/?hoogle=%5BString%5D%20-%3E%20String&scope=null
+http://hoogle.haskell.org:8081/?hoogle=%5BString%5D%20-%3E%20String
