@@ -85,6 +85,7 @@ fizzRule n old = if n `rem` 3 > 0
 確かにその通りなのですが、しかし同じことを "buzz" に対しても繰り返す必要があります。そこで割る数 (3 か 5) と結果となる単語 ("fizz" か "buzz") をパラメータにすることで重複を除いておきます。
 
 .パラメータ化された FizzBuzz ルール
+[source, haskell]
 ----
 divBy:: Int -> String -> Rule
 divBy divisor word n old = if n `rem` divisor > 0
