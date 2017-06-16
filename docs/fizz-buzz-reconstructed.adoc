@@ -229,5 +229,5 @@ main _ = for (map transform [1..100]) println
 === 参考文献
 [horizontal]
 Froogle::
-Lookup `joined` by type (TODO: リンク切れ):
+Lookup `joined` by type:
 http://hoogle.haskell.org:8081/?hoogle=%5BString%5D%20-%3E%20String
