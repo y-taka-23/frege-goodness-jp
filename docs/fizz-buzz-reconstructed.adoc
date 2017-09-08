@@ -209,7 +209,7 @@ main _ = for (map transform [1..100]) println
 
 * これまでの解のいいところはそのまま
 * 巨大な数をパフォーマンス上問題なく扱える
-* より簡単に新しいルールを定義して既存のルールと組み合わせることが可能
+* より簡単に新しいルールを定義して既存のルールと組み合わせることが可能 (いわば組み込みドメイン特化言語)
 * ルールが関数として定義できるので、非常に広くいろいろな形で使用できる
 
 関数や、関数としての型がいかに素晴らしいものか (改めて) 確認できたことと思います。
@@ -231,3 +231,8 @@ main _ = for (map transform [1..100]) println
 Froogle::
 Lookup `joined` by type:
 http://hoogle.haskell.org:8081/?hoogle=%5BString%5D%20-%3E%20String
+Kevlin Henney::
+gives a similar example in JavaScript in this video: https://www.youtube.com/watch?v=FyCYva9DhsI a
+around minute 21ff, calling it "too clever"
+Maciej Pirog::
+FizzBuzz in Haskell by Embedding a Domain-Specific Language https://themonadreader.files.wordpress.com/2014/04/fizzbuzz.pdf
